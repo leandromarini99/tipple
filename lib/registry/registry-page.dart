@@ -21,7 +21,6 @@ class RegistryPage extends StatelessWidget {
             children: <Widget>[
               Container(
                 width: 250.0,
-                height: 40.0,
                 child: TextField(
                   decoration: InputDecoration(
                     labelText: "Vorname:",
@@ -37,7 +36,6 @@ class RegistryPage extends StatelessWidget {
               ),
               Container(
                 width: 250.0,
-                height: 40.0,
                 child: TextField(
                   decoration: InputDecoration(
                     labelText: "Nachname:",
