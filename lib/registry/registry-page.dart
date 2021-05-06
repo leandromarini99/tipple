@@ -20,7 +20,8 @@ class RegistryPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
-                width: 200.0,
+                width: 250.0,
+                height: 40.0,
                 child: TextField(
                   decoration: InputDecoration(
                     labelText: "Vorname:",
@@ -28,7 +29,23 @@ class RegistryPage extends StatelessWidget {
                       Icons.person,
                     ),
                     hintStyle: TextStyle(
-                      backgroundColor: Colors.blue,
+                      backgroundColor: Colors.blue[900],
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                width: 250.0,
+                height: 40.0,
+                child: TextField(
+                  decoration: InputDecoration(
+                    labelText: "Nachname:",
+                    icon: Icon(
+                      Icons.person,
+                    ),
+                    hintStyle: TextStyle(
+                      backgroundColor: Colors.blue[900],
                       color: Colors.white,
                     ),
                   ),
