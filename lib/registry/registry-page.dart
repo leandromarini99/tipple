@@ -20,7 +20,10 @@ class RegistryPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               _buildTextbox("Vorname", Icons.arrow_back_outlined),
-              _buildTextbox("Nachname", Icons.person)
+              _buildTextbox("Nachname", Icons.person),
+              _buildTextbox("Email", Icons.person),
+              _buildTextbox("Passwort", Icons.person),
+              _buildTextbox("Passwort wiederholen", Icons.person),
             ],
           ),
         ],
