@@ -19,39 +19,27 @@ class RegistryPage extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Container(
-                width: 250.0,
-                child: TextField(
-                  decoration: InputDecoration(
-                    labelText: "Vorname:",
-                    icon: Icon(
-                      Icons.person,
-                    ),
-                    hintStyle: TextStyle(
-                      backgroundColor: Colors.blue[900],
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                width: 250.0,
-                child: TextField(
-                  decoration: InputDecoration(
-                    labelText: "Nachname:",
-                    icon: Icon(
-                      Icons.person,
-                    ),
-                    hintStyle: TextStyle(
-                      backgroundColor: Colors.blue[900],
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
+              _buildTextbox("Vorname", Icons.arrow_back_outlined),
+              _buildTextbox("Nachname", Icons.person)
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildTextbox(String nameValue, IconData iconNameValue) {
+    return Container(
+      width: 250.0,
+      child: TextField(
+        decoration: InputDecoration(
+          labelText: nameValue,
+          icon: Icon(iconNameValue),
+          hintStyle: TextStyle(
+            backgroundColor: Colors.blue[900],
+            color: Colors.white,
+          ),
+        ),
       ),
     );
   }
