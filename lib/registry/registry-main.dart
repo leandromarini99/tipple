@@ -1,5 +1,8 @@
+import 'package:first_app/registry/registry.dart';
 import 'registry-page.dart';
 import 'package:flutter/material.dart';
+import 'registry-service.dart';
+import 'registry.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,6 +17,13 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
+  Future<List<Registry>> futureData;
+
+  @override
+  void initState() {
+    super.initState();
+    futureData = fetchRegistry();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +33,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: RegistryPage(title: "Ingredient Page"),
+      home: RegistryPage(title: "Registry Page", registry: futureData),
     );
   }
 }
