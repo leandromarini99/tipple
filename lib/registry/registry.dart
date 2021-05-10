@@ -22,11 +22,10 @@ class Registry {
         gender: json['gender'],
         email: json['email'],
         password: json['password'],
- 
+
         // address:
-            // (json['address'] as List).map((e) => Address.fromJson(e)).toList()
-            address: Address.fromJson(json['address'])
-            );
+        // (json['address'] as List).map((e) => Address.fromJson(e)).toList()
+        address: Address.fromJson(json['address']));
   }
 }
 
@@ -45,6 +44,4 @@ class Address {
         street: json['street'],
         houseNumber: json['houseNumber']);
   }
-
 }
-

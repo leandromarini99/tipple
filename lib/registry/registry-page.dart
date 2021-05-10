@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'registry.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +6,6 @@ class RegistryPage extends StatelessWidget {
 
   final String title;
   final Future<List<Registry>> registry;
-
 
   @override
   Widget build(BuildContext context) {
@@ -104,11 +102,6 @@ class RegistryPage extends StatelessWidget {
       TableCell(child: Center(child: Text("gender", style: textStyle))),
     ];
   }
-      child: Text("First Name", style: textStyle),
-      TableCell(child: Center(child: Text("Last Name", style: textStyle))),
-      TableCell(child: Center(child: Text("Address", style: textStyle))),
-;
-  }
 
   List<TableRow> _createStatusCells(Registry info) {
     List<TableRow> rows = [];
@@ -123,7 +116,8 @@ class RegistryPage extends StatelessWidget {
       TableCell(
           child: Center(child: Text(info.lastName, textAlign: TextAlign.left))),
       TableCell(
-          child: Center(child: Text(info.address.town, textAlign: TextAlign.left))),
+          child: Center(
+              child: Text(info.address.town, textAlign: TextAlign.left))),
     ]));
     // }
     return rows;

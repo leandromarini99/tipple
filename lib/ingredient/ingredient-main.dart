@@ -17,7 +17,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
-   Future<List<Ingredient>> futureData;
+  Future<List<Ingredient>> futureData;
 
   @override
   void initState() {
@@ -33,8 +33,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: IngredientPage(
-          title: "Ingredient Page", ingredients: futureData),
+      home: IngredientPage(title: "Ingredient Page", ingredients: futureData),
     );
   }
 }
