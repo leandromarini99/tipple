@@ -12,7 +12,8 @@ class Registry {
   final String gender;
   final String email;
   final String password;
-  final List<Address> address;
+  // final List<Address> address;
+  final Address address;
 
   factory Registry.fromJson(Map<String, dynamic> json) {
     return Registry(
@@ -21,8 +22,11 @@ class Registry {
         gender: json['gender'],
         email: json['email'],
         password: json['password'],
-        address:
-            (json['address'] as List).map((e) => Address.fromJson(e)).toList());
+ 
+        // address:
+            // (json['address'] as List).map((e) => Address.fromJson(e)).toList()
+            address: Address.fromJson(json['address'])
+            );
   }
 }
 
@@ -41,4 +45,6 @@ class Address {
         street: json['street'],
         houseNumber: json['houseNumber']);
   }
+
 }
+

@@ -1,4 +1,4 @@
-import 'package:first_app/registry/registry.dart';
+
 import 'registry-page.dart';
 import 'package:flutter/material.dart';
 import 'registry-service.dart';
@@ -36,4 +36,3 @@ class _MyAppState extends State<MyApp> {
       home: RegistryPage(title: "Registry Page", registry: futureData),
     );
   }
-}

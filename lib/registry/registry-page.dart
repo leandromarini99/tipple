@@ -1,4 +1,5 @@
-import 'package:first_app/registry/registry.dart';
+
+import 'registry.dart';
 import 'package:flutter/material.dart';
 
 class RegistryPage extends StatelessWidget {
@@ -6,6 +7,7 @@ class RegistryPage extends StatelessWidget {
 
   final String title;
   final Future<List<Registry>> registry;
+
 
   /* @override
   Widget build(BuildContext context) {
@@ -117,7 +119,7 @@ class RegistryPage extends StatelessWidget {
         TextStyle(fontWeight: FontWeight.bold, height: 3);
     return <Widget>[
       new Center(
-        child: new Text(registry.firstName, style: textStyle),
+        child: new Text(registry.email, style: textStyle),
       ),
       new Center(
         child: _createStatusTable(registry),
@@ -146,6 +148,11 @@ class RegistryPage extends StatelessWidget {
       TableCell(child: Center(child: Text("gender", style: textStyle))),
     ];
   }
+      child: Text("First Name", style: textStyle))),
+      TableCell(child: Center(child: Text("Last Name", style: textStyle))),
+      TableCell(child: Center(child: Text("Address", style: textStyle))),
+    ];
+  }
 
   List<TableRow> _createStatusCells(Registry info) {
     List<TableRow> rows = [];
@@ -160,7 +167,7 @@ class RegistryPage extends StatelessWidget {
       TableCell(
           child: Center(child: Text(info.lastName, textAlign: TextAlign.left))),
       TableCell(
-          child: Center(child: Text(info.gender, textAlign: TextAlign.left))),
+          child: Center(child: Text(info.address.town, textAlign: TextAlign.left))),
     ]));
     // }
     return rows;

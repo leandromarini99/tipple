@@ -16,4 +16,5 @@ Future<List<Registry>> fetchRegistry() async {
   } else {
     throw Exception('Failed to laod Users');
   }
+
 }
