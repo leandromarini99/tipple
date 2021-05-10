@@ -1,4 +1,4 @@
-
+import 'dart:html';
 import 'registry.dart';
 import 'package:flutter/material.dart';
 
@@ -8,50 +8,6 @@ class RegistryPage extends StatelessWidget {
   final String title;
   final Future<List<Registry>> registry;
 
-
-  /* @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("Registrierung"),
-      ),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              _buildTextbox("Vorname"),
-              _buildTextbox("Nachname"),
-              _buildTextbox("Email"),
-              _buildTextbox("Passwort"),
-              _buildTextbox("Passwort wiederholen"),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTextbox(
-    String nameValue,
-    /* IconData iconNameValue */
-  ) {
-    return Container(
-      width: 250.0,
-      child: TextField(
-        decoration: InputDecoration(
-          labelText: nameValue,
-          /* icon: Icon(iconNameValue),
-          hintStyle: TextStyle(
-            backgroundColor: Colors.blue[900],
-            color: Colors.white,
-          ), */
-        ),
-      ),
-    );
-  } */
 
   @override
   Widget build(BuildContext context) {
@@ -148,10 +104,10 @@ class RegistryPage extends StatelessWidget {
       TableCell(child: Center(child: Text("gender", style: textStyle))),
     ];
   }
-      child: Text("First Name", style: textStyle))),
+      child: Text("First Name", style: textStyle),
       TableCell(child: Center(child: Text("Last Name", style: textStyle))),
       TableCell(child: Center(child: Text("Address", style: textStyle))),
-    ];
+;
   }
 
   List<TableRow> _createStatusCells(Registry info) {
