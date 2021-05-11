@@ -1,5 +1,6 @@
 class Ingredient {
-  const Ingredient({ this.id, this.name,  this.url,  this.price});
+
+  const Ingredient({this.id, this.name, this.url, this.price});
 
   final String id;
   final String name;
@@ -14,5 +15,4 @@ class Ingredient {
         url: json['url'],
         price: json['price']);
   }
-
 }

@@ -97,12 +97,11 @@ class RegistryPage extends StatelessWidget {
       TableCell(
           child: Padding(
               padding: EdgeInsets.only(left: 20),
-              child: Text("First Name", style: textStyle))),
-      TableCell(child: Center(child: Text("Last Name", style: textStyle))),
-      TableCell(child: Center(child: Text("Address", style: textStyle))),
+              child: Text("firstName", style: textStyle))),
+      TableCell(child: Center(child: Text("lastName", style: textStyle))),
+      TableCell(child: Center(child: Text("gender", style: textStyle))),
     ];
   }
-
 
   List<TableRow> _createStatusCells(Registry info) {
     List<TableRow> rows = [];
@@ -117,7 +116,8 @@ class RegistryPage extends StatelessWidget {
       TableCell(
           child: Center(child: Text(info.lastName, textAlign: TextAlign.left))),
       TableCell(
-          child: Center(child: Text(info.address.town, textAlign: TextAlign.left))),
+          child: Center(
+              child: Text(info.address.town, textAlign: TextAlign.left))),
     ]));
     // }
     return rows;

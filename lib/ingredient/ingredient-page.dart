@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'ingredient.dart';
 
-
 class IngredientPage extends StatelessWidget {
-  IngredientPage({ Key key,  this.title,  this.ingredients}) : super(key: key);
+  IngredientPage({Key key, this.title, this.ingredients}) : super(key: key);
 
   final String title;
   final Future<List<Ingredient>> ingredients;
@@ -17,7 +16,7 @@ class IngredientPage extends StatelessWidget {
         body: Center(
             child: FutureBuilder<List<Ingredient>>(
                 future: this.ingredients,
-                builder: (context, snapshot)  {
+                builder: (context, snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.none:
                     case ConnectionState.waiting:
@@ -54,7 +53,6 @@ class IngredientPage extends StatelessWidget {
     return serverInfoCells;
   }
 
-
   Container _getServerInfoCard(Ingredient ingredient) {
     return new Container(
         width: 200.0,
@@ -84,7 +82,7 @@ class IngredientPage extends StatelessWidget {
   }
 
   Widget _createStatusTable(Ingredient ingredient) {
-    if (ingredient==null) {
+    if (ingredient == null) {
       return new Text('Server unreachable');
     }
     return Table(
@@ -110,38 +108,34 @@ class IngredientPage extends StatelessWidget {
     // prepare header
     rows.add(TableRow(children: _prepareHeader()));
     // prepare data
-    // for (Ingredient info in ingredient) {
-      rows.add(TableRow(children: [
-        TableCell(
-            child: Padding(
-                padding: EdgeInsets.only(left: 20),
-                child: Text(info.name, textAlign: TextAlign.left))),
-        TableCell(
-        child: Center(
-        child: Text(info.url, textAlign: TextAlign.left))),
-        TableCell(
-            child: Center(
-                child: Text(info.price.toString(),
-                    textAlign: TextAlign.left)))
-      ]));
-    // }
+
+    rows.add(TableRow(children: [
+      TableCell(
+          child: Padding(
+              padding: EdgeInsets.only(left: 20),
+              child: Text(info.name, textAlign: TextAlign.left))),
+      TableCell(
+          child: Center(child: Text(info.url, textAlign: TextAlign.left))),
+      TableCell(
+          child: Center(
+              child: Text(info.price.toString(), textAlign: TextAlign.left)))
+    ]));
     return rows;
   }
 
   int determineCrossAxisCount(BuildContext context) {
-  int _crossAxisCount = 1;
-  final double screenWidthSize = MediaQuery.of(context).size.width;
-  if (screenWidthSize > 820) {
-    _crossAxisCount = 4;
-  } else if (screenWidthSize > 720) {
-    _crossAxisCount = 3;
-  } else if (screenWidthSize > 520) {
-    _crossAxisCount = 2;
-  } else {
-    _crossAxisCount = 1;
+    int _crossAxisCount = 1;
+    final double screenWidthSize = MediaQuery.of(context).size.width;
+    if (screenWidthSize > 820) {
+      _crossAxisCount = 4;
+    } else if (screenWidthSize > 720) {
+      _crossAxisCount = 3;
+    } else if (screenWidthSize > 520) {
+      _crossAxisCount = 2;
+    } else {
+      _crossAxisCount = 1;
+    }
+
+    return _crossAxisCount;
   }
-
-  return _crossAxisCount;
-}
-
 }
