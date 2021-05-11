@@ -7,7 +7,7 @@ Future<List<Registry>> fetchRegistry() async {
 
   final response = await http.get(url);
   print(response.body);
-  deleteUserFromJson();
+  deleteUserFromJson("3d69e53f-799e-404e-a71b-c621debe1ed2");
   if (response.statusCode == 200) {
     var responseJson = json.decode(response.body);
     return (responseJson as List)
@@ -67,23 +67,8 @@ deleteUser(Map<String, dynamic> users) async {
   print(response.statusCode);
 }
 
-deleteUserFromJson(/* textfeld1 */) {
-  // Map Key/Value für Users
-  Map<String, dynamic> json = Map<String, dynamic>();
-  json['firstName'] = "textfeld1";
-  json['lastName'] = "Ossborn";
-  json['gender'] = "M";
-  json['email'] = "ossborn@gmail.com";
-  json['password'] = "ossborn123";
-  //Map Key/Value List für Users.Address
-  Map<String, dynamic> address = Map<String, dynamic>();
-  json['address'] = address;
-  address['town'] = 'Berlin';
-  address['zipCode'] = 10117;
-  address['street'] = "Heckerdamm";
-  address['houseNumber'] = "27b";
-
+deleteUserFromJson(Map<String, dynamic> id) {
   // löschen des Users
-  deleteUser(json);
+  deleteUser(id);
 }
 // E
