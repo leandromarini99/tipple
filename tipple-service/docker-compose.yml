@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+
+  mongo:
+    container_name: tipple-mongo
+    image: mongo:4.4.5-bionic
+    volumes:
+      - ./data/db:/data/tipple
+
+  spring:
+    restart: on-failure
+    depends_on:
+      - mongo
+    build: ./
+    image:
+      tipple-microservice
+    ports:
+      - 8990:8990
+    links:
+      - mongo
