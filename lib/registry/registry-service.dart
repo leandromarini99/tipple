@@ -8,8 +8,8 @@ Future<List<Registry>> fetchRegistry() async {
   final response = await http.get(url);
   print(response.body);
   if (response.statusCode == 200) {
-    updateUserToJson('6a6a57ab-994a-4b53-b583-e61c5852b7bc');
     var responseJson = json.decode(response.body);
+    updateUserToJson('ab24cb73-cdbb-4ac0-94bb-23cdb3ebe628');
     return (responseJson as List)
         .map((user) => Registry.fromJson(user))
         .toList();
@@ -121,30 +121,32 @@ updateUser(Map<String, dynamic> users, String id) async {
     'Accept': 'application/json',
   };
   var encodedBody = json.encode(users);
+  print(encodedBody);
   var url = Uri.http('10.0.2.2:8990', 'users/$id');
   http.Response response =
       await http.put(url, body: encodedBody, headers: header);
   print(response.statusCode);
 }
 
-updateUserToJson(String id) async {
-  Future<Registry> jsonUser = fetchUserRegistry(id);
-  Registry updateRegistry = await jsonUser;
+updateUserToJson(String id) {
+  // Future<Registry> jsonUser = fetchUserRegistry(id);
+  // Registry updateRegistry =  fetchUserRegistry(id) as Registry;
 
   Map<String, dynamic> updateMap = Map<String, dynamic>();
-  updateMap['firstName'] = updateRegistry.firstName;
+  Map<String, dynamic> address = Map<String, dynamic>();
+  updateMap['id'] = id;
+  updateMap['firstName'] = 'Leandro';
   updateMap['lastName'] = 'Marini';
-  updateMap['gender'] = updateRegistry.gender;
-  updateMap['email'] = updateRegistry.email;
-  updateMap['password'] = updateRegistry.address;
+  updateMap['gender'] = 'M';
+  updateMap['email'] = 'leandro@tipple';
+  updateMap['password'] = 'address';
+  updateMap['address'] = address;
 
   //Map Key/Value List für Users.Address
-  Map<String, dynamic> address = Map<String, dynamic>();
-  updateMap['address'] = json.encode(address);
-  address['town'] = updateRegistry.address.town;
-  address['zipCode'] = updateRegistry.address.zipCode;
-  address['street'] = updateRegistry.address.street;
-  address['houseNumber'] = updateRegistry.address.houseNumber;
+  address['town'] = '.town';
+  address['zipCode'] = 'zipCode';
+  address['street'] = 'street';
+  address['houseNumber'] = 'houseNumber';
 
   // löschen des Users
   updateUser(updateMap, id);
