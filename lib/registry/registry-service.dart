@@ -6,10 +6,11 @@ Future<List<Registry>> fetchRegistry() async {
   var url = Uri.http('10.0.2.2:8990', 'users');
 
   final response = await http.get(url);
-  print(response.body);
   if (response.statusCode == 200) {
     var responseJson = json.decode(response.body);
-    updateUserToJson('ab24cb73-cdbb-4ac0-94bb-23cdb3ebe628');
+    updateUserToJson('ca4333c9-be9b-4f31-81e3-7b073494707f');
+    /* postUserToJson('Mohamed', 'Omar', 'M', 'mo.omar@gmail.com', 'omar123',
+        'Hamburg', 22303, 'Steindamm', '5'); */
     return (responseJson as List)
         .map((user) => Registry.fromJson(user))
         .toList();
@@ -104,7 +105,6 @@ Future<Registry> fetchUserRegistry(String id) async {
   var url = Uri.http('10.0.2.2:8990', 'users/$id');
 
   final response = await http.get(url);
-  print(response.body);
   if (response.statusCode == 200) {
     return Registry.fromJson(json.decode(response.body));
   } else {
@@ -121,32 +121,31 @@ updateUser(Map<String, dynamic> users, String id) async {
     'Accept': 'application/json',
   };
   var encodedBody = json.encode(users);
-  print(encodedBody);
+  //print(encodedBody);
   var url = Uri.http('10.0.2.2:8990', 'users/$id');
   http.Response response =
       await http.put(url, body: encodedBody, headers: header);
   print(response.statusCode);
 }
 
-updateUserToJson(String id) {
-  // Future<Registry> jsonUser = fetchUserRegistry(id);
-  // Registry updateRegistry =  fetchUserRegistry(id) as Registry;
-
+updateUserToJson(String id) async {
+  Future<Registry> jsonUser = fetchUserRegistry(id);
+  Registry updateRegistry = await jsonUser;
   Map<String, dynamic> updateMap = Map<String, dynamic>();
-  Map<String, dynamic> address = Map<String, dynamic>();
   updateMap['id'] = id;
-  updateMap['firstName'] = 'Leandro';
-  updateMap['lastName'] = 'Marini';
-  updateMap['gender'] = 'M';
-  updateMap['email'] = 'leandro@tipple';
-  updateMap['password'] = 'address';
-  updateMap['address'] = address;
+  updateMap['firstName'] = updateRegistry.firstName;
+  updateMap['lastName'] = updateRegistry.lastName;
+  updateMap['gender'] = updateRegistry.gender;
+  updateMap['email'] = 'mailaddress';
+  updateMap['password'] = updateRegistry.password;
 
   //Map Key/Value List für Users.Address
-  address['town'] = '.town';
-  address['zipCode'] = 'zipCode';
-  address['street'] = 'street';
-  address['houseNumber'] = 'houseNumber';
+  Map<String, dynamic> address = Map<String, dynamic>();
+  updateMap['address'] = address;
+  address['town'] = updateRegistry.address.town;
+  address['zipCode'] = updateRegistry.address.zipCode;
+  address['street'] = updateRegistry.address.street;
+  address['houseNumber'] = updateRegistry.address.houseNumber;
 
   // löschen des Users
   updateUser(updateMap, id);
