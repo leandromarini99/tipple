@@ -1,12 +1,14 @@
 class Registry {
   const Registry(
-      {this.firstName,
+      {this.id,
+      this.firstName,
       this.lastName,
       this.gender,
       this.email,
       this.password,
       this.address});
 
+  final String id;
   final String firstName;
   final String lastName;
   final String gender;
@@ -17,6 +19,7 @@ class Registry {
 
   factory Registry.fromJson(Map<String, dynamic> json) {
     return Registry(
+        id: json['id'],
         firstName: json['firstName'],
         lastName: json['lastName'],
         gender: json['gender'],

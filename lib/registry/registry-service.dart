@@ -121,7 +121,6 @@ updateUser(Map<String, dynamic> users, String id) async {
     'Accept': 'application/json',
   };
   var encodedBody = json.encode(users);
-  //print(encodedBody);
   var url = Uri.http('10.0.2.2:8990', 'users/$id');
   http.Response response =
       await http.put(url, body: encodedBody, headers: header);
