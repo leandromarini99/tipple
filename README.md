@@ -1,4 +1,4 @@
-# first_app
+# This App is developed by a group of Itech students.
 
 A new Flutter project.
 
