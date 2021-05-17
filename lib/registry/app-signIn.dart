@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:http/http.dart';
+import 'package:tipple_app/ingredient/ingredient-service.dart';
+import 'package:tipple_app/registry/registry-service.dart';
 import 'app-signUp.dart';
 
 class AppSignIn extends StatefulWidget {
@@ -8,6 +11,9 @@ class AppSignIn extends StatefulWidget {
 }
 
 class _AppSignInState extends State<AppSignIn> {
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     String defaultFontFamily = 'Roboto-Light.ttf';
@@ -50,6 +56,7 @@ class _AppSignInState extends State<AppSignIn> {
                     height: 15,
                   ),
                   TextField(
+                    controller: emailController,
                     showCursor: true,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -77,6 +84,7 @@ class _AppSignInState extends State<AppSignIn> {
                     height: 15,
                   ),
                   TextField(
+                    controller: passwordController,
                     showCursor: true,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -129,7 +137,9 @@ class _AppSignInState extends State<AppSignIn> {
                     width: double.infinity,
                     child: RaisedButton(
                       padding: EdgeInsets.all(17.0),
-                      onPressed: () {},
+                      onPressed: () {
+                        login();
+                      },
                       child: Text(
                         "Sign In",
                         style: TextStyle(
@@ -199,5 +209,9 @@ class _AppSignInState extends State<AppSignIn> {
         ),
       ),
     );
+  }
+
+  void login() {
+    print(fetchRegistry());
   }
 }

@@ -274,10 +274,8 @@ class AppSignUp extends StatelessWidget {
     );
   }
 
-  signUp() {
-    if (passwordController.text == repeatPassworController.text) {
-      postUserToJson(firstNameController.text, lastNameController.text, '',
-          emailController.text, passwordController.text, '', 0, '', '');
-    }
+  void signUp() {
+    postUserToJson(firstNameController.text, lastNameController.text, '',
+        emailController.text, passwordController.text, '', 0, '', '');
   }
 }
