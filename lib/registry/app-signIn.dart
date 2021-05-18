@@ -13,6 +13,9 @@ class AppSignIn extends StatefulWidget {
 class _AppSignInState extends State<AppSignIn> {
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
+  bool loggedIn = false;
+  String msgEmailIncorrect = 'Es gibt keine Email mit diesem Namen';
+  String msgPasswordIncorrect = 'Dein angegebenes Passwort ist falsch';
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +141,7 @@ class _AppSignInState extends State<AppSignIn> {
                     child: RaisedButton(
                       padding: EdgeInsets.all(17.0),
                       onPressed: () {
-                        login(emailController);
+                        login(emailController.text);
                       },
                       child: Text(
                         "Sign In",
@@ -211,22 +214,36 @@ class _AppSignInState extends State<AppSignIn> {
     );
   }
 
-  // Get User from localhost:8990/users/{id}
+  // Get user by email - controllerEmail = email
   //A
-  Future<Registry> getUserByEmail(TextEditingController email) async {
-    var url = Uri.http('10.0.2.2:8990', 'users/$email');
+  // ignore: missing_return
+  Future<Registry> getUserByEmail(String email) async {
+    var url = Uri.http('10.0.2.2:8990', 'users/email/$email');
 
     final response = await http.get(url);
     if (response.statusCode == 200) {
+      print(response.body);
       return Registry.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Failed to load Users');
+      print(msgEmailIncorrect);
     }
   }
   // E
 
-  void login(TextEditingController emailControl) {
-    getUserByEmail(emailControl);
-    print(emailControl);
+  void login(String emailControl) async {
+    Registry registry = await getUserByEmail(emailControl);
+    if (registry == null) {
+      print(msgEmailIncorrect);
+    }
+
+    bool checkEmail = emailControl == registry.email;
+    bool checkPassword = passwordController.text == registry.password;
+
+    if (checkEmail && checkPassword) {
+      loggedIn = true;
+      print('Du hast dich erfolgreich eingeloggt.');
+    } else {
+      print(msgPasswordIncorrect);
+    }
   }
 }

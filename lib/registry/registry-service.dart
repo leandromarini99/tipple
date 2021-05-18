@@ -149,17 +149,3 @@ updateUserToJson(String id) async {
   updateUser(updateMap, id);
 }
 // E
-
-// Get User from localhost:8990/users/{id}
-//A
-Future<Registry> getUserByEmail(TextEditingController email) async {
-  var url = Uri.http('10.0.2.2:8990', 'users/$email');
-
-  final response = await http.get(url);
-  if (response.statusCode == 200) {
-    return Registry.fromJson(json.decode(response.body));
-  } else {
-    throw Exception('Failed to load Users');
-  }
-}
-// E
