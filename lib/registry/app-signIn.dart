@@ -152,14 +152,14 @@ class _AppSignInState extends State<AppSignIn> {
                         ),
                         textAlign: TextAlign.center,
                       ),
-                       style: ElevatedButton.styleFrom(
+                      style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.all(17.0),
                         primary: Colors.yellow[600],
                         onPrimary: Colors.white,
-                       shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(15.0),
-                          // side: BorderSide(color: Color(0xFFBC1F26))),
-                          side: BorderSide(color: Colors.blueGrey[600])),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(15.0),
+                            // side: BorderSide(color: Color(0xFFBC1F26))),
+                            side: BorderSide(color: Colors.blueGrey[600])),
                       ),
                       // color: Color(0xFFBC1F26),
                       // shape: RoundedRectangleBorder(
