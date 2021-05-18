@@ -198,24 +198,33 @@ class AppSignUp extends StatelessWidget {
                   ),
                   Container(
                     width: double.infinity,
-                    child: RaisedButton(
-                      padding: EdgeInsets.all(17.0),
+                    child: ElevatedButton(
+                      // padding: EdgeInsets.all(17.0),
                       onPressed: () {
                         signUp();
                       },
                       child: Text(
                         "Sign Up",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontSize: 18,
                           fontFamily: 'Poppins-Medium.ttf',
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      color: Color(0xFFBC1F26),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(15.0),
-                          side: BorderSide(color: Color(0xFFBC1F26))),
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.all(17.0),
+                        primary: Colors.yellow[600],
+                        onPrimary: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(15.0),
+                            // side: BorderSide(color: Color(0xFFBC1F26))),
+                            side: BorderSide(color: Colors.blueGrey[600])),
+                      ),
+                      // color: Color(0xFFBC1F26),
+                      // shape: RoundedRectangleBorder(
+                      //     borderRadius: new BorderRadius.circular(15.0),
+                      //     side: BorderSide(color: Color(0xFFBC1F26))),
                     ),
                     decoration: BoxDecoration(
                         shape: BoxShape.circle, color: Color(0xFFF2F3F7)),
@@ -277,5 +286,14 @@ class AppSignUp extends StatelessWidget {
   void signUp() {
     postUserToJson(firstNameController.text, lastNameController.text, '',
         emailController.text, passwordController.text, '', 0, '', '');
+    _clearFieldsAfterPost();
+  }
+
+  _clearFieldsAfterPost() {
+    firstNameController.text = '';
+    lastNameController.text = '';
+    emailController.text = '';
+    passwordController.text = '';
+    repeatPassworController.text = '';
   }
 }
