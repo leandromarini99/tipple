@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:http/http.dart';
-import 'package:tipple_app/ingredient/ingredient-service.dart';
-import 'package:tipple_app/registry/registry-service.dart';
 import 'app-signUp.dart';
+import 'registry.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class AppSignIn extends StatefulWidget {
   @override
@@ -13,6 +13,9 @@ class AppSignIn extends StatefulWidget {
 class _AppSignInState extends State<AppSignIn> {
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
+  bool loggedIn = false;
+  String msgEmailIncorrect = 'Es gibt keine Email mit diesem Namen';
+  String msgPasswordIncorrect = 'Dein angegebenes Passwort ist falsch';
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +141,7 @@ class _AppSignInState extends State<AppSignIn> {
                     child: ElevatedButton(
                       // padding: EdgeInsets.all(17.0),
                       onPressed: () {
-                        login();
+                        login(emailController.text);
                       },
                       child: Text(
                         "Sign In",
@@ -149,14 +152,14 @@ class _AppSignInState extends State<AppSignIn> {
                         ),
                         textAlign: TextAlign.center,
                       ),
-                       style: ElevatedButton.styleFrom(
+                      style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.all(17.0),
                         primary: Colors.yellow[600],
                         onPrimary: Colors.white,
-                       shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(15.0),
-                          // side: BorderSide(color: Color(0xFFBC1F26))),
-                          side: BorderSide(color: Colors.blueGrey[600])),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(15.0),
+                            // side: BorderSide(color: Color(0xFFBC1F26))),
+                            side: BorderSide(color: Colors.blueGrey[600])),
                       ),
                       // color: Color(0xFFBC1F26),
                       // shape: RoundedRectangleBorder(
@@ -220,7 +223,36 @@ class _AppSignInState extends State<AppSignIn> {
     );
   }
 
-  void login() {
-    print(fetchRegistry());
+  // Get user by email - controllerEmail = email
+  //A
+  // ignore: missing_return
+  Future<Registry> getUserByEmail(String email) async {
+    var url = Uri.http('10.0.2.2:8990', 'users/email/$email');
+
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      print(response.body);
+      return Registry.fromJson(json.decode(response.body));
+    } else {
+      print(msgEmailIncorrect);
+    }
+  }
+  // E
+
+  void login(String emailControl) async {
+    Registry registry = await getUserByEmail(emailControl);
+    if (registry == null) {
+      print(msgEmailIncorrect);
+    }
+
+    bool checkEmail = emailControl == registry.email;
+    bool checkPassword = passwordController.text == registry.password;
+
+    if (checkEmail && checkPassword) {
+      loggedIn = true;
+      print('Du hast dich erfolgreich eingeloggt.');
+    } else {
+      print(msgPasswordIncorrect);
+    }
   }
 }
