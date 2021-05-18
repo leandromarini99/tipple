@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import 'registry.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -8,9 +10,6 @@ Future<List<Registry>> fetchRegistry() async {
   final response = await http.get(url);
   if (response.statusCode == 200) {
     var responseJson = json.decode(response.body);
-    updateUserToJson('ca4333c9-be9b-4f31-81e3-7b073494707f');
-    /* postUserToJson('Mohamed', 'Omar', 'M', 'mo.omar@gmail.com', 'omar123',
-        'Hamburg', 22303, 'Steindamm', '5'); */
     return (responseJson as List)
         .map((user) => Registry.fromJson(user))
         .toList();
