@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:http/http.dart';
-import 'package:tipple_app/ingredient/ingredient-service.dart';
-import 'package:tipple_app/registry/registry-service.dart';
 import 'app-signUp.dart';
+import 'registry.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class AppSignIn extends StatefulWidget {
   @override
@@ -138,7 +138,7 @@ class _AppSignInState extends State<AppSignIn> {
                     child: RaisedButton(
                       padding: EdgeInsets.all(17.0),
                       onPressed: () {
-                        login();
+                        login(emailController);
                       },
                       child: Text(
                         "Sign In",
@@ -211,7 +211,22 @@ class _AppSignInState extends State<AppSignIn> {
     );
   }
 
-  void login() {
-    print(fetchRegistry());
+  // Get User from localhost:8990/users/{id}
+  //A
+  Future<Registry> getUserByEmail(TextEditingController email) async {
+    var url = Uri.http('10.0.2.2:8990', 'users/$email');
+
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      return Registry.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load Users');
+    }
+  }
+  // E
+
+  void login(TextEditingController emailControl) {
+    getUserByEmail(emailControl);
+    print(emailControl);
   }
 }
