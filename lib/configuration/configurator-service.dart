@@ -10,16 +10,16 @@ Future<List<Configuration>> fetchConfigurations() async {
 
   if (response.statusCode == 200) {
     var responseJson = json.decode(response.body);
-    fetchConfigurationsByUserId('6379eac9-fe73-40cf-83fc-14b1d1fda14a');
+    fetchConfigurationsInCartByUserId('31ad0101-efc2-4b4d-820d-061c0eabdfd6');
     // deleteConfiguration('42120a5f-e9e1-49aa-b396-3d2126cbf0db');
-    updateConfigurationToJson(
-        '6379eac9-fe73-40cf-83fc-14b1d1fda14a',
-        DateTime.now(),
-        true,
-        false,
-        'e34ed4ad-1227-4070-8254-cf4cd012c1bb',
-        'AMK',
-        0.00);
+    // updateConfigurationToJson(
+    //     '6379eac9-fe73-40cf-83fc-14b1d1fda14a',
+    //     DateTime.now(),
+    //     true,
+    //     false,
+    //     'e34ed4ad-1227-4070-8254-cf4cd012c1bb',
+    //     'AMK',
+    //     0.00);
     /*postConfigurationToJson(
         '6379eac9-fe73-40cf-83fc-14b1d1fda14a',
         DateTime.now(),
@@ -120,6 +120,20 @@ updateConfigurationToJson(String userId, DateTime date, bool share, bool cart,
 
 Future<List<Configuration>> fetchConfigurationsByUserId(String id) async {
   var url = Uri.http('10.0.2.2:8990', 'configurations/user/' + id);
+  final response = await http.get(url);
+  if (response.statusCode == 200) {
+    print(response.body);
+    var responseJson = json.decode(response.body);
+    return (responseJson as List)
+        .map((config) => Configuration.fromJson(config))
+        .toList();
+  } else {
+    throw Exception('Failed to laod configurations');
+  }
+}
+
+Future<List<Configuration>> fetchConfigurationsInCartByUserId(String id) async {
+  var url = Uri.http('10.0.2.2:8990', 'configurations/carts/' + id);
   final response = await http.get(url);
   if (response.statusCode == 200) {
     print(response.body);
