@@ -1,7 +1,8 @@
+import 'package:tipple_app/configuration/configurator-service.dart';
+import 'ingredient-configurator.dart';
 import 'package:flutter/material.dart';
-import 'package:tipple_app/registry/app-signUp.dart';
-import 'package:tipple_app/registry/registry-service.dart';
-import 'package:tipple_app/registry/registry.dart';
+import 'dart:async';
+import 'package:tipple_app/configuration/configurator-page.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,14 +17,13 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
-  Future<List<Registry>> futureData;
+  Future<List<Configuration>> futureData;
 
   @override
   void initState() {
     super.initState();
-    futureData = fetchRegistry();
+    futureData = fetchConfigurations();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,8 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: AppSignUp(),
+      home: ConfiguratorPage(
+          title: "Configuration Page", configurations: futureData),
     );
   }
 }

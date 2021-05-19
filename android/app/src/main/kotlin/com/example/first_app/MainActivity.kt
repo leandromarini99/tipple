@@ -1,4 +1,4 @@
-package com.example.first_app
+package de.tipple
 
 import io.flutter.embedding.android.FlutterActivity
 

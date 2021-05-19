@@ -10,7 +10,7 @@ Future<List<Ingredient>> fetchIngredients() async {
 
   if (response.statusCode == 200) {
     var responseJson = json.decode(response.body);
-    deleteIngredientsFromJson('1d16a5d3-5543-4d01-ac8a-64431cad5b7b');
+    deleteIngredientsFromJson('844fda1c-3a94-42e5-9555-469b336f21b4');
     return (responseJson as List)
         .map((ingre) => Ingredient.fromJson(ingre))
         .toList();
