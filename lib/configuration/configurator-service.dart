@@ -145,3 +145,15 @@ Future<List<Configuration>> fetchConfigurationsInCartByUserId(String id) async {
     throw Exception('Failed to laod configurations');
   }
 }
+Future<Configuration> fetchConfigurationById(String id) async {
+  var url = Uri.http('10.0.2.2:8990', 'configurations/' + id);
+  final response = await http.get(url);
+  if (response.statusCode == 200) {
+    print(response.body);
+    var responseJson = json.decode(response.body);
+    return 
+         Configuration.fromJson(responseJson);
+  } else {
+    throw Exception('Failed to laod configurations');
+  }
+}
