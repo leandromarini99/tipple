@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'app-signUp.dart';
 import 'registry.dart';
 import 'package:http/http.dart' as http;
@@ -24,27 +25,19 @@ class _AppSignInState extends State<AppSignIn> {
     double defaultIconSize = 17;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
-        padding: EdgeInsets.only(left: 20, right: 20, top: 35, bottom: 30),
+        decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/background.png"),
+              fit: BoxFit.cover,
+            )
+        ),
+        padding: EdgeInsets.only(left: 20, right: 20, top: 0, bottom: 16),
         width: double.infinity,
         height: double.infinity,
-        color: Colors.white70,
         child: Column(
           children: <Widget>[
-            Flexible(
-              flex: 1,
-              child: InkWell(
-                child: Container(
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Icon(Icons.close),
-                  ),
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ),
             Flexible(
               flex: 5,
               child: Column(
@@ -55,88 +48,110 @@ class _AppSignInState extends State<AppSignIn> {
                     height: 130,
                     alignment: Alignment.center,
                   ),
+
+
+                  //Intro Text
+                  RichText(
+                    text: TextSpan(
+                      text: 'Moin!',
+                      style: GoogleFonts.poppins(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xFF000000),
+                      ),
+                    ),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: 'Einloggen und schon kann es losgehen',
+                      style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        color: Color(0xFF000000),
+                      ),
+                    ),
+                  ),
+
+
+                  //Enter Mail
                   SizedBox(
                     height: 15,
                   ),
                   TextField(
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      color: Color(0x80000000),
+                    ),
+                    textAlign: TextAlign.center,
                     controller: emailController,
                     showCursor: true,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         borderSide: BorderSide(
-                          width: 0,
+                          width: 1,
                           style: BorderStyle.none,
                         ),
                       ),
                       filled: true,
-                      prefixIcon: Icon(
-                        Icons.email,
-                        color: Color(0xFF666666),
-                        size: defaultIconSize,
-                      ),
-                      fillColor: Color(0xFFF2F3F5),
-                      hintStyle: TextStyle(
-                          color: Color(0xFF666666),
-                          fontFamily: defaultFontFamily,
-                          fontSize: defaultFontSize),
-                      hintText: "Email",
+                      fillColor: Color(0xFFFFFFFF),
+                      hintStyle: TextStyle(color: Color(0x80000000)),
+                      hintText: "E-Mail",
                     ),
                   ),
+
+
+                  //Enter PW
                   SizedBox(
                     height: 15,
                   ),
                   TextField(
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      color: Color(0x80000000),
+                    ),
+                    textAlign: TextAlign.center,
                     controller: passwordController,
                     showCursor: true,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         borderSide: BorderSide(
-                          width: 0,
+                          width: 1,
                           style: BorderStyle.none,
                         ),
                       ),
                       filled: true,
-                      prefixIcon: Icon(
-                        Icons.lock_outline,
-                        color: Color(0xFF666666),
-                        size: defaultIconSize,
-                      ),
-                      suffixIcon: Icon(
-                        Icons.remove_red_eye,
-                        color: Color(0xFF666666),
-                        size: defaultIconSize,
-                      ),
-                      fillColor: Color(0xFFF2F3F5),
-                      hintStyle: TextStyle(
-                        color: Color(0xFF666666),
-                        fontFamily: defaultFontFamily,
-                        fontSize: defaultFontSize,
-                      ),
-                      hintText: "Password",
+                      fillColor: Color(0xFFFFFFFF),
+                      hintStyle: TextStyle(color: Color(0x80000000)),
+                      hintText: "Passwort",
                     ),
                   ),
+
+
+                  //Forgot PW - Nice to have
+                  // SizedBox(
+                  //   height: 15,
+                  // ),
+                  // Container(
+                  //   width: double.infinity,
+                  //   child: Text(
+                  //     "Passwort vergessen?",
+                  //     style: TextStyle(
+                  //       color: Color(0xFF666666),
+                  //       fontFamily: defaultFontFamily,
+                  //       fontSize: defaultFontSize,
+                  //       fontStyle: FontStyle.normal,
+                  //     ),
+                  //     textAlign: TextAlign.end,
+                  //   ),
+                  // ),
+
+                  //Login Btn
                   SizedBox(
                     height: 15,
                   ),
                   Container(
-                    width: double.infinity,
-                    child: Text(
-                      "Forgot your password?",
-                      style: TextStyle(
-                        color: Color(0xFF666666),
-                        fontFamily: defaultFontFamily,
-                        fontSize: defaultFontSize,
-                        fontStyle: FontStyle.normal,
-                      ),
-                      textAlign: TextAlign.end,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Container(
+                    margin: const EdgeInsets.only(top: 190.0),
                     width: double.infinity,
                     child: ElevatedButton(
                       // padding: EdgeInsets.all(17.0),
@@ -144,30 +159,19 @@ class _AppSignInState extends State<AppSignIn> {
                         login(emailController.text);
                       },
                       child: Text(
-                        "Sign In",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontFamily: 'Poppins-Medium.ttf',
+                        "Login",
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xFFFFFFFF),
                         ),
                         textAlign: TextAlign.center,
                       ),
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.all(17.0),
-                        primary: Colors.yellow[600],
-                        onPrimary: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(15.0),
-                            // side: BorderSide(color: Color(0xFFBC1F26))),
-                            side: BorderSide(color: Colors.blueGrey[600])),
+                        primary: Color(0xFFFCC919),
                       ),
-                      // color: Color(0xFFBC1F26),
-                      // shape: RoundedRectangleBorder(
-                      //     borderRadius: new BorderRadius.circular(15.0),
-                      //     side: BorderSide(color: Color(0xFFBC1F26))),
                     ),
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle, color: Color(0xFFF2F3F7)),
                   ),
                   SizedBox(
                     height: 10,
@@ -185,12 +189,10 @@ class _AppSignInState extends State<AppSignIn> {
                   children: <Widget>[
                     Container(
                       child: Text(
-                        "Don't have an account? ",
-                        style: TextStyle(
-                          color: Color(0xFF666666),
-                          fontFamily: defaultFontFamily,
-                          fontSize: defaultFontSize,
-                          fontStyle: FontStyle.normal,
+                        "Du hast noch keinen Account? ",
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          color: Color(0xFF000000),
                         ),
                       ),
                     ),
@@ -203,12 +205,11 @@ class _AppSignInState extends State<AppSignIn> {
                       },
                       child: Container(
                         child: Text(
-                          "Sign Up",
-                          style: TextStyle(
-                            color: Color(0xFFAC252B),
-                            fontFamily: defaultFontFamily,
-                            fontSize: defaultFontSize,
-                            fontStyle: FontStyle.normal,
+                          "Registrieren",
+                          style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFF1F6C9C),
                           ),
                         ),
                       ),
