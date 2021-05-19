@@ -128,24 +128,6 @@ class _AppSignInState extends State<AppSignIn> {
                   ),
 
 
-                  //Forgot PW - Nice to have
-                  // SizedBox(
-                  //   height: 15,
-                  // ),
-                  // Container(
-                  //   width: double.infinity,
-                  //   child: Text(
-                  //     "Passwort vergessen?",
-                  //     style: TextStyle(
-                  //       color: Color(0xFF666666),
-                  //       fontFamily: defaultFontFamily,
-                  //       fontSize: defaultFontSize,
-                  //       fontStyle: FontStyle.normal,
-                  //     ),
-                  //     textAlign: TextAlign.end,
-                  //   ),
-                  // ),
-
                   //Login Btn
                   SizedBox(
                     height: 15,
