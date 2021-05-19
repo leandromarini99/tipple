@@ -14,7 +14,7 @@ class _AppSignInState extends State<AppSignIn> {
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
   bool loggedIn = false;
-  String msgEmailIncorrect = 'Es gibt keine Email mit diesem Namen';
+  String msgEmailIncorrect = 'Email nicht vorhanden';
   String msgPasswordIncorrect = 'Dein angegebenes Passwort ist falsch';
 
   @override
@@ -225,7 +225,6 @@ class _AppSignInState extends State<AppSignIn> {
 
   // Get user by email - controllerEmail = email
   //A
-  // ignore: missing_return
   Future<Registry> getUserByEmail(String email) async {
     var url = Uri.http('10.0.2.2:8990', 'users/email/$email');
 
@@ -234,7 +233,7 @@ class _AppSignInState extends State<AppSignIn> {
       print(response.body);
       return Registry.fromJson(json.decode(response.body));
     } else {
-      print(msgEmailIncorrect);
+      throw Exception(msgEmailIncorrect);
     }
   }
   // E
@@ -247,7 +246,6 @@ class _AppSignInState extends State<AppSignIn> {
 
     bool checkEmail = emailControl == registry.email;
     bool checkPassword = passwordController.text == registry.password;
-
     if (checkEmail && checkPassword) {
       loggedIn = true;
       print('Du hast dich erfolgreich eingeloggt.');
