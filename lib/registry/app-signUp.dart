@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'app-signIn.dart';
 import 'package:tipple_app/registry/registry-service.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppSignUp extends StatelessWidget {
   TextEditingController firstNameController = new TextEditingController();
@@ -11,16 +12,19 @@ class AppSignUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String defaultFontFamily = 'Roboto-Light.ttf';
-    double defaultFontSize = 14;
-    double defaultIconSize = 17;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
-        padding: EdgeInsets.only(left: 20, right: 20, top: 35, bottom: 30),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/background.png"),
+            fit: BoxFit.cover,
+          )
+        ),
+        padding: EdgeInsets.only(left: 20, right: 20, top: 25, bottom: 16),
         width: double.infinity,
         height: double.infinity,
-        color: Colors.white70,
         child: Column(
           children: <Widget>[
             Flexible(
@@ -47,6 +51,31 @@ class AppSignUp extends StatelessWidget {
                     height: 10,
                     alignment: Alignment.center,
                   ),
+
+
+                  //Intro Text
+                  RichText(
+                    text: TextSpan(
+                      text: 'Moin!',
+                      style: GoogleFonts.poppins(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xFF000000),
+                      ),
+                    ),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: 'Registrieren und schon kann es losgehen',
+                      style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        color: Color(0xFF000000),
+                      ),
+                    ),
+                  ),
+
+
+                  //Enter FirstName
                   SizedBox(
                     height: 15,
                   ),
@@ -55,179 +84,176 @@ class AppSignUp extends StatelessWidget {
                       Flexible(
                         flex: 1,
                         child: TextField(
+                          style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            color: Color(0x80000000),
+                          ),
+                          textAlign: TextAlign.center,
                           controller: firstNameController,
                           showCursor: true,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
                               borderSide: BorderSide(
-                                width: 0,
+                                width: 1,
                                 style: BorderStyle.none,
                               ),
                             ),
                             filled: true,
-                            fillColor: Color(0xFFF2F3F5),
+                            fillColor: Color(0xFFFFFFFF),
                             hintStyle: TextStyle(
-                              color: Color(0xFF666666),
-                              fontFamily: defaultFontFamily,
-                              fontSize: defaultFontSize,
+                              color: Color(0x80000000),
                             ),
-                            hintText: "First Name",
+                            hintText: "Vorname",
                           ),
                         ),
                       ),
+
+
+                      //Enter lastName
                       SizedBox(
                         width: 10,
                       ),
                       Flexible(
                         flex: 1,
                         child: TextField(
+                          style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            color: Color(0x80000000),
+                          ),
+                          textAlign: TextAlign.center,
                           controller: lastNameController,
                           showCursor: true,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
                               borderSide: BorderSide(
-                                width: 0,
+                                width: 1,
                                 style: BorderStyle.none,
                               ),
                             ),
                             filled: true,
-                            fillColor: Color(0xFFF2F3F5),
+                            fillColor: Color(0xFFFFFFFF),
                             hintStyle: TextStyle(
-                              color: Color(0xFF666666),
-                              fontFamily: defaultFontFamily,
-                              fontSize: defaultFontSize,
+                              color: Color(0x80000000),
                             ),
-                            hintText: "Last Name",
+                            hintText: "Nachname",
                           ),
                         ),
                       ),
                     ],
                   ),
+
+
+                  //Enter Mail
                   SizedBox(
                     height: 15,
                   ),
                   TextField(
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      color: Color(0x80000000),
+                    ),
+                    textAlign: TextAlign.center,
                     controller: emailController,
                     showCursor: true,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         borderSide: BorderSide(
-                          width: 0,
+                          width: 1,
                           style: BorderStyle.none,
                         ),
                       ),
                       filled: true,
-                      prefixIcon: Icon(
-                        Icons.email,
-                        color: Color(0xFF666666),
-                        size: defaultIconSize,
-                      ),
-                      fillColor: Color(0xFFF2F3F5),
-                      hintStyle: TextStyle(
-                          color: Color(0xFF666666),
-                          fontFamily: defaultFontFamily,
-                          fontSize: defaultFontSize),
-                      hintText: "Email",
+                      fillColor: Color(0xFFFFFFFF),
+                      hintStyle: TextStyle(color: Color(0x80000000)),
+                      hintText: "E-Mail",
                     ),
                   ),
+
+
+                  //Enter PW
                   SizedBox(
                     height: 15,
                   ),
                   TextField(
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      color: Color(0x80000000),
+                    ),
+                    textAlign: TextAlign.center,
                     controller: passwordController,
                     showCursor: true,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         borderSide: BorderSide(
-                          width: 0,
+                          width: 1,
                           style: BorderStyle.none,
                         ),
                       ),
                       filled: true,
-                      prefixIcon: Icon(
-                        Icons.lock_outline,
-                        color: Color(0xFF666666),
-                        size: defaultIconSize,
-                      ),
-                      fillColor: Color(0xFFF2F3F5),
-                      hintStyle: TextStyle(
-                        color: Color(0xFF666666),
-                        fontFamily: defaultFontFamily,
-                        fontSize: defaultFontSize,
-                      ),
+                      fillColor: Color(0xFFFFFFFF),
+                      hintStyle: TextStyle(color: Color(0x80000000)),
                       hintText: "Passwort",
                     ),
                   ),
+
+
+                  //Repeat PW
                   SizedBox(
                     height: 15,
                   ),
                   TextField(
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      color: Color(0x80000000),
+                    ),
+                    textAlign: TextAlign.center,
                     controller: repeatPassworController,
                     showCursor: true,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         borderSide: BorderSide(
-                          width: 0,
+                          width: 1,
                           style: BorderStyle.none,
                         ),
                       ),
                       filled: true,
-                      prefixIcon: Icon(
-                        Icons.lock_outline,
-                        color: Color(0xFF666666),
-                        size: defaultIconSize,
-                      ),
-                      fillColor: Color(0xFFF2F3F5),
-                      hintStyle: TextStyle(
-                        color: Color(0xFF666666),
-                        fontFamily: defaultFontFamily,
-                        fontSize: defaultFontSize,
-                      ),
+                      fillColor: Color(0xFFFFFFFF),
+                      hintStyle: TextStyle(color: Color(0x80000000)),
                       hintText: "Passwort wiederholen",
                     ),
                   ),
+
+
+                  //Register Btn
                   SizedBox(
                     height: 15,
                   ),
                   Container(
+                    margin: const EdgeInsets.only(top: 50.0),
                     width: double.infinity,
                     child: ElevatedButton(
-                      // padding: EdgeInsets.all(17.0),
                       onPressed: () {
                         signUp();
                       },
                       child: Text(
-                        "Sign Up",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontFamily: 'Poppins-Medium.ttf',
+                        "Registrieren",
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xFFFFFFFF),
                         ),
                         textAlign: TextAlign.center,
                       ),
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.all(17.0),
-                        primary: Colors.yellow[600],
-                        onPrimary: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(15.0),
-                            // side: BorderSide(color: Color(0xFFBC1F26))),
-                            side: BorderSide(color: Colors.blueGrey[600])),
+                        primary: Color(0xFFFCC919),
                       ),
-                      // color: Color(0xFFBC1F26),
-                      // shape: RoundedRectangleBorder(
-                      //     borderRadius: new BorderRadius.circular(15.0),
-                      //     side: BorderSide(color: Color(0xFFBC1F26))),
                     ),
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle, color: Color(0xFFF2F3F7)),
                   ),
                   SizedBox(
                     height: 10,
@@ -245,12 +271,10 @@ class AppSignUp extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       child: Text(
-                        "Already have an account? ",
-                        style: TextStyle(
-                          color: Color(0xFF666666),
-                          fontFamily: defaultFontFamily,
-                          fontSize: defaultFontSize,
-                          fontStyle: FontStyle.normal,
+                        "Du hast schon einen Account? ",
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          color: Color(0xFF000000),
                         ),
                       ),
                     ),
@@ -263,12 +287,11 @@ class AppSignUp extends StatelessWidget {
                       },
                       child: Container(
                         child: Text(
-                          "Sign In",
-                          style: TextStyle(
-                            color: Color(0xFFAC252B),
-                            fontFamily: defaultFontFamily,
-                            fontSize: defaultFontSize,
-                            fontStyle: FontStyle.normal,
+                          "Login",
+                          style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFF1F6C9C),
                           ),
                         ),
                       ),
