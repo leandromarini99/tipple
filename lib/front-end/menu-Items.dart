@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tipple_app/configuration/configurator-page.dart';
-import 'package:tipple_app/front-end/menu-Items-drawer.dart';
-import 'package:tipple_app/registry/app-signUp.dart';
 
 void main() => runApp(MyApp());
 
@@ -32,72 +30,179 @@ class _MyHomePageState extends State<MyHomePage> {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        drawer: MultiLevelDrawer(
-          backgroundColor: Colors.white,
-          rippleColor: Colors.white,
-          subMenuBackgroundColor: Colors.grey.shade100,
-          divisionColor: Colors.grey,
-          header: Container(
-            height: size.height * 0.25,
-            child: Center(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Image.asset(
-                  // build(context)
-                  "assets/user-profile.png",
-                  width: 100,
-                  height: 100,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text("Benutzer-Name")
-              ],
-            )),
+
+        // Menu
+        drawer: Theme(
+          data: Theme.of(context).copyWith(
+            canvasColor: Color(0xFFFCC919),
           ),
-          children: [
-            MLMenuItem(
-                leading: Icon(Icons.person),
-                trailing: Icon(Icons.arrow_right),
-                content: Text(
-                  "Mein Konto",
-                ),
-                onClick: () {}),
-            MLMenuItem(
-                leading: Icon(Icons.settings),
-                trailing: Icon(Icons.arrow_right),
-                content: Text("Einstellungen"),
-                onClick: () {}
-            ),
-            MLMenuItem(
-              leading: Icon(Icons.add_shopping_cart),
-              content: Text("Cart"),
-              onClick: () {
-                Navigator.of(context).push(MaterialPageRoute(builder:
-                 (context) => AppSignUp()));
-              },
-            ),
-            MLMenuItem(
-                leading: Icon(Icons.archive),
-                // leading: Icon(Icons.payment),
-                trailing: Icon(Icons.arrow_right),
-                content: Text(
-                  "Meine Bestellungen",
-                ),
-                onClick: () {
-                //    Navigator.of(context).push(MaterialPageRoute(builder:
-                //  (context) => ConfiguratorInfo()));
-                }),
-            MLMenuItem(
-                leading: Icon(Icons.question_answer),
-                trailing: Icon(Icons.arrow_right),
-                content: Text(
-                  "FAQ",
-                ),
-                onClick: () {}),
-          ],
+          child: Drawer(
+             child: ListView(
+               children: <Widget>[
+
+                 //Header
+                 Container(
+                   padding: EdgeInsets.only(right: 130),
+                   child: Image.asset(
+                     "assets/header.png",
+                     height: 175,
+                   ),
+                 ),
+
+
+                 //Username
+                 Padding(
+                   padding: const EdgeInsets.all(8.0),
+                   child: RichText(
+                     text: TextSpan(
+                       text: 'Max Mustermann', //TODO
+                       style: GoogleFonts.poppins(
+                         fontSize: 24,
+                         fontWeight: FontWeight.w700,
+                         color: Color(0xFF000000),
+                       ),
+                     ),
+                     textAlign: TextAlign.center,
+                   ),
+                 ),
+
+
+                 //Konto Btn
+                 Container(
+                   margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 15.0, bottom: 15.0),
+                   width: double.infinity,
+                   child: ElevatedButton(
+                     onPressed: () {
+                       //TODO
+                       Navigator.pop(context);
+                     },
+                     child: Text(
+                       "Mein Konto",
+                       style: GoogleFonts.poppins(
+                         fontSize: 16,
+                         fontWeight: FontWeight.w700,
+                         color: Color(0xFF000000),
+                       ),
+                       textAlign: TextAlign.center,
+                     ),
+                     style: ElevatedButton.styleFrom(
+                       padding: EdgeInsets.all(17.0),
+                       primary: Color(0xFFFFFFFF),
+                     ),
+                   ),
+                 ),
+
+
+                 //Bestellungen Btn
+                 Container(
+                   margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 15.0, bottom: 15.0),
+                   width: double.infinity,
+                   child: ElevatedButton(
+                     onPressed: () {
+                       // TODO
+                       // Navigator.of(context).push(MaterialPageRoute(builder:
+                       // (context) => ConfiguratorInfo()));
+                       Navigator.pop(context);
+                     },
+                     child: Text(
+                       "Meine Bestellungen",
+                       style: GoogleFonts.poppins(
+                         fontSize: 16,
+                         fontWeight: FontWeight.w700,
+                         color: Color(0xFF000000),
+                       ),
+                       textAlign: TextAlign.center,
+                     ),
+                     style: ElevatedButton.styleFrom(
+                       padding: EdgeInsets.all(17.0),
+                       primary: Color(0xFFFFFFFF),
+                     ),
+                   ),
+                 ),
+
+                 //Warenkorb Btn
+                 Container(
+                   margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 15.0, bottom: 15.0),
+                   width: double.infinity,
+                   child: ElevatedButton(
+                     onPressed: () {
+                       // TODO
+                       // Navigator.of(context).push(MaterialPageRoute(builder:
+                       // (context) => AppSignUp()));
+                       Navigator.pop(context);
+                     },
+                     child: Text(
+                       "Warenkorb",
+                       style: GoogleFonts.poppins(
+                         fontSize: 16,
+                         fontWeight: FontWeight.w700,
+                         color: Color(0xFF000000),
+                       ),
+                       textAlign: TextAlign.center,
+                     ),
+                     style: ElevatedButton.styleFrom(
+                       padding: EdgeInsets.all(17.0),
+                       primary: Color(0xFFFFFFFF),
+                     ),
+                   ),
+                 ),
+
+                 //Einstellungen Btn
+                 Container(
+                   margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 15.0, bottom: 15.0),
+                   width: double.infinity,
+                   child: ElevatedButton(
+                     onPressed: () {
+                       //TODO
+                       Navigator.pop(context);
+                     },
+                     child: Text(
+                       "Einstellungen",
+                       style: GoogleFonts.poppins(
+                         fontSize: 16,
+                         fontWeight: FontWeight.w700,
+                         color: Color(0xFF000000),
+                       ),
+                       textAlign: TextAlign.center,
+                     ),
+                     style: ElevatedButton.styleFrom(
+                       padding: EdgeInsets.all(17.0),
+                       primary: Color(0xFFFFFFFF),
+                     ),
+                   ),
+                 ),
+
+                 //FAQ Btn
+                 Container(
+                   margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 15.0, bottom: 15.0),
+                   width: double.infinity,
+                   child: ElevatedButton(
+                     onPressed: () {
+                       //TODO
+                       Navigator.pop(context);
+                     },
+                     child: Text(
+                       "FAQ",
+                       style: GoogleFonts.poppins(
+                         fontSize: 16,
+                         fontWeight: FontWeight.w700,
+                         color: Color(0xFF000000),
+                       ),
+                       textAlign: TextAlign.center,
+                     ),
+                     style: ElevatedButton.styleFrom(
+                       padding: EdgeInsets.all(17.0),
+                       primary: Color(0xFFFFFFFF),
+                     ),
+                   ),
+                 ),
+               ],
+             ) ,
+          ),
         ),
+
+
+        //Home screen
         appBar: AppBar(
           backgroundColor: Color(0xFFFCC919),
           iconTheme: IconThemeData(color: Color(0xFFFFFFFF)),
@@ -123,7 +228,6 @@ class _MyHomePageState extends State<MyHomePage> {
             height: double.infinity,
           child: Column(
              children: <Widget>[
-
                //Logo
                Image.asset(
                  // build(context)
@@ -155,7 +259,7 @@ class _MyHomePageState extends State<MyHomePage> {
                  padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                  child: RichText(
                    text: TextSpan(
-                     text: 'Herzlich Willkommen bei Tipple. Mir dieser App kannst du eigene Säfte zusammenstellen.'
+                     text: 'Herzlich Willkommen bei Tipple. Mit dieser App kannst du eigene Säfte zusammenstellen.'
                          ' Dafür stehen dir diverse natürliche Zutaten zur Auswahl,'
                          ' welche beliebig miteinander kombiniert werden können. Du '
                          'kannst das Getränk also ganz nach deinem eigenen Geschmack gestalten '
@@ -193,7 +297,6 @@ class _MyHomePageState extends State<MyHomePage> {
                    ),
                  ),
                ),
-
              ],
           )
         ),
