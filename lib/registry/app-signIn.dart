@@ -16,6 +16,7 @@ class _AppSignInState extends State<AppSignIn> {
   bool loggedIn = false;
   String msgEmailIncorrect = 'Email nicht vorhanden';
   String msgPasswordIncorrect = 'Dein angegebenes Passwort ist falsch';
+  String id;
 
   @override
   Widget build(BuildContext context) {
@@ -240,6 +241,7 @@ class _AppSignInState extends State<AppSignIn> {
 
   void login(String emailControl) async {
     Registry registry = await getUserByEmail(emailControl);
+    id = registry.id;
     if (registry == null) {
       print(msgEmailIncorrect);
     }
