@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tipple_app/configuration/configurator-page.dart';
 import 'package:tipple_app/front-end/configuration-list.dart';
+import 'package:tipple_app/updateProfile/updateUserSetting-menu.dart';
 
 void main() => runApp(MyApp());
 
@@ -71,8 +72,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      //TODO
-                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => UpdateUserSettingsMenu()),
+                      );
                     },
                     child: Text(
                       "Mein Konto",
@@ -156,7 +160,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Navigator.pop(context);
                     },
                     child: Text(
-                      "Einstellungen",
+                      "Einstelulngen",
                       style: GoogleFonts.poppins(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
