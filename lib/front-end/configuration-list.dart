@@ -10,8 +10,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tipple_app/configuration/configurator-service.dart';
 import 'package:tipple_app/configuration/ingredient-configurator.dart';
-
-import 'package:tipple_app/front-end/styles.dart';
 import 'package:tipple_app/ingredient/ingredient.dart';
 
 class ConfigApp extends StatelessWidget {
@@ -21,6 +19,7 @@ class ConfigApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: title,
       home: Scaffold(
         appBar: AppBar(title: Text(title)),
@@ -28,6 +27,7 @@ class ConfigApp extends StatelessWidget {
             futureList: fetchConfigurationsByUserId(
                 '229304a5-bf3c-44f0-acac-cf2a97e75c79')),
       ),
+      // TODO get userId from login Info 
     );
   }
 }
@@ -97,7 +97,7 @@ class ConfigStatelessWidget extends StatelessWidget {
           ),
           Container(
               decoration: BoxDecoration(
-                  border: Border.all(color: Styles.appBackground),
+                  border: Border.all(color: Colors.blueAccent),
                   color: Colors.yellow),
               padding: EdgeInsets.all(8),
               child: Column(children: [
