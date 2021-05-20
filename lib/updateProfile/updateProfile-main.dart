@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'updateUserSettings-page.dart';
+import 'package:tipple_app/updateProfile/updateUserSetting-menu.dart';
 import 'updateUserPassword-page.dart';
 
 

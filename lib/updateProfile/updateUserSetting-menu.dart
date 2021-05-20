@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tipple_app/updateProfile/updateUserSettings-page.dart';
+import 'package:tipple_app/updateProfile/updateUserPassword-page.dart';
 
 class UpdateUserSettingsMenu extends StatelessWidget {
 
