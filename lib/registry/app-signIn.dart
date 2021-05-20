@@ -8,6 +8,8 @@ import 'dart:convert';
 import 'package:tipple_app/front-end/menu-Items.dart';
 
 String userId;
+String userFirstName;
+String userLastName;
 
 class AppSignIn extends StatefulWidget {
   @override
@@ -226,6 +228,9 @@ class _AppSignInState extends State<AppSignIn> {
   login(String emailControl) async {
     Registry registry = await getUserByEmail(emailControl);
     userId = registry.id;
+    userFirstName = registry.firstName;
+    userLastName = registry.lastName;
+
     if (registry == null) {
       print(msgEmailIncorrect);
     }

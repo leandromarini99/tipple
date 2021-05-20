@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tipple_app/configuration/configurator-page.dart';
 import 'package:tipple_app/front-end/configuration-list.dart';
+import 'package:tipple_app/registry/app-signIn.dart';
 import 'package:tipple_app/updateProfile/updateUserSetting-menu.dart';
 
 void main() => runApp(MyApp());
@@ -54,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.all(8.0),
                   child: RichText(
                     text: TextSpan(
-                      text: 'Max Mustermann', //TODO
+                      text: userFirstName + ' ' + userLastName,
                       style: GoogleFonts.poppins(
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
@@ -160,7 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Navigator.pop(context);
                     },
                     child: Text(
-                      "Einstelulngen",
+                      "Einstellungen",
                       style: GoogleFonts.poppins(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
@@ -242,7 +243,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.all(8.0),
                   child: RichText(
                     text: TextSpan(
-                      text: 'Moin Username!',
+                      text: 'Moin ' + userFirstName + '!',
                       style: GoogleFonts.poppins(
                         fontSize: 24,
                         fontWeight: FontWeight.w500,
