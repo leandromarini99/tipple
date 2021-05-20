@@ -21,19 +21,14 @@ class _AppSignInState extends State<AppSignIn> {
 
   @override
   Widget build(BuildContext context) {
-    String defaultFontFamily = 'Roboto-Light.ttf';
-    double defaultFontSize = 14;
-    double defaultIconSize = 17;
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/background.png"),
-              fit: BoxFit.cover,
-            )
-        ),
+          image: AssetImage("assets/background.png"),
+          fit: BoxFit.cover,
+        )),
         padding: EdgeInsets.only(left: 20, right: 20, top: 0, bottom: 16),
         width: double.infinity,
         height: double.infinity,
@@ -49,7 +44,6 @@ class _AppSignInState extends State<AppSignIn> {
                     height: 130,
                     alignment: Alignment.center,
                   ),
-
 
                   //Intro Text
                   RichText(
@@ -71,7 +65,6 @@ class _AppSignInState extends State<AppSignIn> {
                       ),
                     ),
                   ),
-
 
                   //Enter Mail
                   SizedBox(
@@ -100,7 +93,6 @@ class _AppSignInState extends State<AppSignIn> {
                     ),
                   ),
 
-
                   //Enter PW
                   SizedBox(
                     height: 15,
@@ -127,7 +119,6 @@ class _AppSignInState extends State<AppSignIn> {
                       hintText: "Passwort",
                     ),
                   ),
-
 
                   //Login Btn
                   SizedBox(

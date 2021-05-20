@@ -1,44 +1,35 @@
 import 'package:flutter/material.dart';
 import 'updateUserSettings-service.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/rendering.dart';
+import 'dart:convert';
 
 class UpdateUserSettings extends StatefulWidget {
   @override
-  _AppSignInState createState() => _AppSignInState();
+  _UpdateUserSettings createState() => _UpdateUserSettings();
 }
 
-class _AppSignInState extends State<UpdateUserSettings> {
+class _UpdateUserSettings extends State<UpdateUserSettings> {
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
+  TextEditingController repeatPasswordController = new TextEditingController();
+  String msgPasswordUpdated = 'Du hast dein Passwort erfolgreich geändert.';
 
   @override
   Widget build(BuildContext context) {
-    String defaultFontFamily = 'Roboto-Light.ttf';
-    double defaultFontSize = 14;
-    double defaultIconSize = 17;
-
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
-        padding: EdgeInsets.only(left: 20, right: 20, top: 35, bottom: 30),
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage("assets/background.png"),
+          fit: BoxFit.cover,
+        )),
+        padding: EdgeInsets.only(left: 20, right: 20, top: 0, bottom: 16),
         width: double.infinity,
         height: double.infinity,
-        color: Colors.white70,
         child: Column(
           children: <Widget>[
-            Flexible(
-              flex: 1,
-              child: InkWell(
-                child: Container(
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Icon(Icons.close),
-                  ),
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ),
             Flexible(
               flex: 5,
               child: Column(
@@ -49,148 +40,81 @@ class _AppSignInState extends State<UpdateUserSettings> {
                     height: 130,
                     alignment: Alignment.center,
                   ),
+                  //Enter Mail
                   SizedBox(
                     height: 15,
                   ),
-                  TextField(
-                    //controller: emailController,
-                    showCursor: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        borderSide: BorderSide(
-                          width: 0,
-                          style: BorderStyle.none,
-                        ),
-                      ),
-                      filled: true,
-                      prefixIcon: Icon(
-                        Icons.email,
-                        color: Color(0xFF666666),
-                        size: defaultIconSize,
-                      ),
-                      fillColor: Color(0xFFF2F3F5),
-                      hintStyle: TextStyle(
-                          color: Color(0xFF666666),
-                          fontFamily: defaultFontFamily,
-                          fontSize: defaultFontSize),
-                      hintText: "Email",
-                    ),
-                  ),
+                  _textbox('Email', emailController),
+
+                  //Enter PW
                   SizedBox(
                     height: 15,
                   ),
-                  TextField(
-                    controller: passwordController,
-                    showCursor: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        borderSide: BorderSide(
-                          width: 0,
-                          style: BorderStyle.none,
-                        ),
-                      ),
-                      filled: true,
-                      prefixIcon: Icon(
-                        Icons.lock_outline,
-                        color: Color(0xFF666666),
-                        size: defaultIconSize,
-                      ),
-                      suffixIcon: Icon(
-                        Icons.remove_red_eye,
-                        color: Color(0xFF666666),
-                        size: defaultIconSize,
-                      ),
-                      fillColor: Color(0xFFF2F3F5),
-                      hintStyle: TextStyle(
-                        color: Color(0xFF666666),
-                        fontFamily: defaultFontFamily,
-                        fontSize: defaultFontSize,
-                      ),
-                      hintText: "Password",
-                    ),
+                  _textbox('Passwort', passwordController),
+
+                  //repeat PW
+                  SizedBox(
+                    height: 15,
                   ),
+                  _textbox('wiederhole Passwort', repeatPasswordController),
+
+                  //Login Btn
                   SizedBox(
                     height: 15,
                   ),
                   Container(
+                    margin: const EdgeInsets.only(top: 190.0),
                     width: double.infinity,
                     child: ElevatedButton(
                       // padding: EdgeInsets.all(17.0),
                       onPressed: () {},
                       child: Text(
-                        "Daten ändern",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontFamily: 'Poppins-Medium.ttf',
+                        "Passwort ändern",
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xFFFFFFFF),
                         ),
                         textAlign: TextAlign.center,
                       ),
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.all(17.0),
-                        primary: Colors.yellow[600],
-                        onPrimary: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(15.0),
-                            side: BorderSide(color: Colors.blueGrey[600])),
+                        primary: Color(0xFFFCC919),
                       ),
                     ),
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle, color: Color(0xFFF2F3F7)),
-                  ),
-                  SizedBox(
-                    height: 10,
                   ),
                 ],
               ),
             ),
-            Flexible(
-              flex: 1,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      child: Text(
-                        "Don't have an account? ",
-                        style: TextStyle(
-                          color: Color(0xFF666666),
-                          fontFamily: defaultFontFamily,
-                          fontSize: defaultFontSize,
-                          fontStyle: FontStyle.normal,
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () => {
-                        /* Navigator.push(
-                          context,
-                          //MaterialPageRoute(builder: (context) => AppSignUp()),
-                        ) */
-                      },
-                      child: Container(
-                        child: Text(
-                          "Sign Up",
-                          style: TextStyle(
-                            color: Color(0xFFAC252B),
-                            fontFamily: defaultFontFamily,
-                            fontSize: defaultFontSize,
-                            fontStyle: FontStyle.normal,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )
           ],
         ),
       ),
     );
   }
+}
+
+@override
+Widget _textbox(String hintText, TextEditingController inputController) {
+  return TextField(
+    style: GoogleFonts.poppins(
+      fontSize: 14,
+      color: Color(0x80000000),
+    ),
+    textAlign: TextAlign.center,
+    controller: inputController,
+    showCursor: true,
+    decoration: InputDecoration(
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        borderSide: BorderSide(
+          width: 1,
+          style: BorderStyle.none,
+        ),
+      ),
+      filled: true,
+      fillColor: Color(0xFFFFFFFF),
+      hintStyle: TextStyle(color: Color(0x80000000)),
+      hintText: hintText,
+    ),
+  );
 }
