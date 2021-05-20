@@ -27,7 +27,8 @@ class ConfigApp extends StatelessWidget {
             futureList: fetchConfigurationsByUserId(
                 '229304a5-bf3c-44f0-acac-cf2a97e75c79')),
       ),
-      // TODO get userId from login Info 
+      // TODO 
+      //get userId from login Info 
     );
   }
 }
@@ -57,6 +58,7 @@ class ConfigStatelessWidget extends StatelessWidget {
   List<Column> _createColumn(
       BuildContext context, List<Configuration> configs) {
     List<Column> columns = [];
+    bool isInCart = title=='Cart Page';
     for (Configuration config in configs) {
       columns.add(
         Column(children: [
@@ -108,12 +110,12 @@ class ConfigStatelessWidget extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(left: 1, bottom: 2),
               // child: CheckboxWidget(),
-              child: Row(
+              child: (!isInCart)? Row(
                 children: <Widget>[
                   CheckboxWidget(share: config.share),
                   Expanded(child: Text('Do you want to share it?')),
                 ],
-              ),
+              ):Text(''),
             ),
           )  
          
