@@ -73,7 +73,14 @@ class ConfigStatelessWidget extends StatelessWidget {
               return CircularProgressIndicator();
             default:
               if (snapshot.hasError)
-                return new Text('Error: ${snapshot.error}');
+                return new Text(
+                  'Du hast leider noch keine Konfiguration erstellt.',
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF000000),
+                  ),
+                );
               else
                 return Column(children: _createColumn(context, snapshot.data));
           }
