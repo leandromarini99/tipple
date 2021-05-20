@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tipple_app/front-end/menu-Items.dart';
 import 'updateUserSettings-service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/rendering.dart';
@@ -62,9 +63,42 @@ class _UpdateUserSettingsEmail extends State<UpdateUserSettingsEmail> {
                     width: double.infinity,
                     child: ElevatedButton(
                       // padding: EdgeInsets.all(17.0),
+
                       onPressed: () {
-                        print(id);
-                        updateUserEmailToJson(id, repeatEmailController.text);
+                        if (emailController.text != repeatEmailController.text) {
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: const Text('Die E-Mail'),
+                              content: const Text('stimmt nicht überein'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, 'Neuer Versuch'),
+                                  child: const Text('Neuer Versuch'),
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          print(id);
+                          updateUserEmailToJson(id, repeatEmailController.text);
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: const Text('E-Mail angepasst'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MyHomePage()),
+                                  ),
+                                  child: const Text('Alles klar'),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
                       },
                       child: Text(
                         "Email ändern",

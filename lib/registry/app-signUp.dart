@@ -172,6 +172,7 @@ class AppSignUp extends StatelessWidget {
                     textAlign: TextAlign.center,
                     controller: passwordController,
                     showCursor: true,
+                    obscureText: true,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -200,6 +201,7 @@ class AppSignUp extends StatelessWidget {
                     textAlign: TextAlign.center,
                     controller: repeatPassworController,
                     showCursor: true,
+                    obscureText: true,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -226,6 +228,21 @@ class AppSignUp extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         signUp();
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Erfolgreich registriert'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => AppSignIn()),
+                                ),
+                                child: const Text('Alles klar'),
+                              ),
+                            ],
+                          ),
+                        );
                       },
                       child: Text(
                         "Registrieren",

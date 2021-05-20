@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tipple_app/front-end/menu-Items.dart';
 import 'updateUserSettings-service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/rendering.dart';
@@ -15,6 +17,8 @@ class _UpdateUserSettings extends State<UpdateUserSettings> {
   TextEditingController repeatPasswordController = new TextEditingController();
   String msgPasswordUpdated = 'Du hast dein Passwort erfolgreich geändert.';
   String id = signIn.userId;
+  String input1;
+  String input2;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +56,10 @@ class _UpdateUserSettings extends State<UpdateUserSettings> {
                   SizedBox(
                     height: 15,
                   ),
-                  _textbox('Passwort wiederholen', repeatPasswordController),
+                  _textbox(
+                    'Passwort wiederholen',
+                    repeatPasswordController,
+                  ),
 
                   //Login Btn
                   SizedBox(
@@ -64,9 +71,40 @@ class _UpdateUserSettings extends State<UpdateUserSettings> {
                     child: ElevatedButton(
                       // padding: EdgeInsets.all(17.0),
                       onPressed: () {
-                        print(id);
-                        updateUserPasswordToJson(
-                            id, repeatPasswordController.text);
+                        if (passwordController.text != repeatPasswordController.text) {
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: const Text('Die Passwörter'),
+                              content: const Text('stimmen nicht überein'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, 'Neuer Versuch'),
+                                  child: const Text('Neuer Versuch'),
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          print(id);
+                          updateUserPasswordToJson(id, repeatPasswordController.text);
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: const Text('Passwort angepasst'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MyHomePage()),
+                                  ),
+                                  child: const Text('Alles klar'),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
                       },
                       child: Text(
                         "Passwort ändern",
@@ -103,6 +141,7 @@ Widget _textbox(String hintText, TextEditingController inputController) {
     textAlign: TextAlign.center,
     controller: inputController,
     showCursor: true,
+    obscureText: true,
     decoration: InputDecoration(
       border: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
