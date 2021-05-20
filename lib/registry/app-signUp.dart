@@ -228,6 +228,21 @@ class AppSignUp extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         signUp();
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Erfolgreich registriert'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => AppSignIn()),
+                                ),
+                                child: const Text('Alles klar'),
+                              ),
+                            ],
+                          ),
+                        );
                       },
                       child: Text(
                         "Registrieren",
