@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tipple_app/updateProfile/updateUserPassword-page.dart';
 import 'package:tipple_app/updateProfile/updateUserEmail-page.dart';
 
+
 class UpdateUserSettingsMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
