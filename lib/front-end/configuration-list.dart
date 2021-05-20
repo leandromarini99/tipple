@@ -43,14 +43,17 @@ class ConfigApp extends StatelessWidget {
             )
           ),
           padding: const EdgeInsets.all(24.0),
+          width: double.infinity,
+          height: double.infinity,
 
-          child: ConfigStatelessWidget(title: title,
-            futureList: fetchConfigurationsByUserId(
-                '143040a1-95ff-49ec-bb05-69939b01d609') // userId
+          child: SingleChildScrollView(
+            child: ConfigStatelessWidget(title: title,
+              futureList: fetchConfigurationsByUserId(
+                  userId) // userId
+            ),
           ),
         ),
       ),
-
     );
   }
 }
@@ -152,16 +155,36 @@ class ConfigStatelessWidget extends StatelessWidget {
     // prepare data
     for (Ingredient ingredient in ingredients) {
       rows.add(TableRow(children: [
+
         TableCell(
             child: Padding(
-                padding: EdgeInsets.only(left: 20),
-                child: Text('Name:', textAlign: TextAlign.left))),
-        TableCell(
-            child: Center(
+                padding: EdgeInsets.only(left: 40, top: 2),
                 child: Text(
-          ingredient.name,
-          textAlign: TextAlign.end,
-        )))
+                    'Zutat:',
+                    textAlign: TextAlign.left,
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xBF000000),
+                    ),
+                )
+            )
+        ),
+
+        TableCell(
+            child: Padding(
+                padding: EdgeInsets.only(left: 60, top: 2),
+                child: Text(
+                    ingredient.name,
+                    textAlign: TextAlign.left,
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xBF000000),
+                    ),
+                )
+            )
+        ),
       ]));
     }
     return rows;
