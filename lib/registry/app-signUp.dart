@@ -4,11 +4,12 @@ import 'package:tipple_app/registry/registry-service.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppSignUp extends StatelessWidget {
-  TextEditingController firstNameController = new TextEditingController();
-  TextEditingController lastNameController = new TextEditingController();
-  TextEditingController emailController = new TextEditingController();
-  TextEditingController passwordController = new TextEditingController();
-  TextEditingController repeatPassworController = new TextEditingController();
+  final TextEditingController firstNameController = new TextEditingController();
+  final TextEditingController lastNameController = new TextEditingController();
+  final TextEditingController emailController = new TextEditingController();
+  final TextEditingController passwordController = new TextEditingController();
+  final TextEditingController repeatPassworController =
+      new TextEditingController();
 
   @override
   Widget build(BuildContext context) {

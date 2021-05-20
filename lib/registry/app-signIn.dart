@@ -15,24 +15,20 @@ class _AppSignInState extends State<AppSignIn> {
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
   bool loggedIn = false;
-  String msgEmailIncorrect = 'Es gibt keine Email mit diesem Namen';
+  String msgEmailIncorrect = 'Email nicht vorhanden';
   String msgPasswordIncorrect = 'Dein angegebenes Passwort ist falsch';
+  String id;
 
   @override
   Widget build(BuildContext context) {
-    String defaultFontFamily = 'Roboto-Light.ttf';
-    double defaultFontSize = 14;
-    double defaultIconSize = 17;
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/background.png"),
-              fit: BoxFit.cover,
-            )
-        ),
+          image: AssetImage("assets/background.png"),
+          fit: BoxFit.cover,
+        )),
         padding: EdgeInsets.only(left: 20, right: 20, top: 0, bottom: 16),
         width: double.infinity,
         height: double.infinity,
@@ -48,7 +44,6 @@ class _AppSignInState extends State<AppSignIn> {
                     height: 130,
                     alignment: Alignment.center,
                   ),
-
 
                   //Intro Text
                   RichText(
@@ -70,7 +65,6 @@ class _AppSignInState extends State<AppSignIn> {
                       ),
                     ),
                   ),
-
 
                   //Enter Mail
                   SizedBox(
@@ -99,7 +93,6 @@ class _AppSignInState extends State<AppSignIn> {
                     ),
                   ),
 
-
                   //Enter PW
                   SizedBox(
                     height: 15,
@@ -126,7 +119,6 @@ class _AppSignInState extends State<AppSignIn> {
                       hintText: "Passwort",
                     ),
                   ),
-
 
                   //Login Btn
                   SizedBox(
@@ -208,7 +200,6 @@ class _AppSignInState extends State<AppSignIn> {
 
   // Get user by email - controllerEmail = email
   //A
-  // ignore: missing_return
   Future<Registry> getUserByEmail(String email) async {
     var url = Uri.http('10.0.2.2:8990', 'users/email/$email');
 
@@ -217,20 +208,20 @@ class _AppSignInState extends State<AppSignIn> {
       print(response.body);
       return Registry.fromJson(json.decode(response.body));
     } else {
-      print(msgEmailIncorrect);
+      throw Exception(msgEmailIncorrect);
     }
   }
   // E
 
   void login(String emailControl) async {
     Registry registry = await getUserByEmail(emailControl);
+    id = registry.id;
     if (registry == null) {
       print(msgEmailIncorrect);
     }
 
     bool checkEmail = emailControl == registry.email;
     bool checkPassword = passwordController.text == registry.password;
-
     if (checkEmail && checkPassword) {
       loggedIn = true;
       print('Du hast dich erfolgreich eingeloggt.');
