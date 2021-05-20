@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tipple_app/updateProfile/updateUserSetting-menu.dart';
 import 'updateUserSettings-page.dart';
+import 'updateUserPassword-page.dart';
+
 
 void main() {
   runApp(MyApp());
