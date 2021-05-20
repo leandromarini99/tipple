@@ -105,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       // TODO
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) =>
-                              ConfigApp(title: 'Configuration Page')));
+                              ConfigApp(title: 'Meine Bestellungen')));
                     },
                     child: Text(
                       "Meine Bestellungen",
@@ -132,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () {
                       // TODO
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ConfigApp(title: 'Cart Page')));
+                          builder: (context) => ConfigApp(title: 'Warenkorb')));
                     },
                     child: Text(
                       "Warenkorb",

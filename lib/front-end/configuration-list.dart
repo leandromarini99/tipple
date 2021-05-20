@@ -1,16 +1,13 @@
-// Copyright 2018 The Flutter team. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tipple_app/configuration/configurator-service.dart';
 import 'package:tipple_app/configuration/ingredient-configurator.dart';
 import 'package:tipple_app/ingredient/ingredient.dart';
+import 'package:tipple_app/registry/app-signIn.dart';
 
 class ConfigApp extends StatelessWidget {
   const ConfigApp({Key key, this.title}) : super(key: key);
@@ -22,13 +19,38 @@ class ConfigApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: title,
       home: Scaffold(
-        appBar: AppBar(title: Text(title)),
-        body: ConfigStatelessWidget(title: title,
+
+        //  Header
+        appBar: AppBar(
+          title: Text(
+            title,
+            style: GoogleFonts.poppins(
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+              fontStyle: FontStyle.italic,
+              color: Color(0xFFFFFFFF),
+            ),
+          ),
+          backgroundColor: Color(0xFFFCC919),
+        ),
+
+
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+            image: AssetImage("assets/background.png"),
+            fit: BoxFit.cover,
+            )
+          ),
+          padding: const EdgeInsets.all(24.0),
+
+          child: ConfigStatelessWidget(title: title,
             futureList: fetchConfigurationsByUserId(
-                '229304a5-bf3c-44f0-acac-cf2a97e75c79')),
+                '143040a1-95ff-49ec-bb05-69939b01d609') // userId
+          ),
+        ),
       ),
-      // TODO 
-      //get userId from login Info 
+
     );
   }
 }
@@ -58,49 +80,48 @@ class ConfigStatelessWidget extends StatelessWidget {
   List<Column> _createColumn(
       BuildContext context, List<Configuration> configs) {
     List<Column> columns = [];
-    bool isInCart = title=='Cart Page';
+    bool isInCart = title=='Warenkorb';
     for (Configuration config in configs) {
       columns.add(
         Column(children: [
           SizedBox(
             height: 16,
           ),
+
           Align(
             alignment: Alignment.centerLeft,
             child: Padding(
-              padding: EdgeInsets.only(left: 9, bottom: 4),
-              child: Text('Config Id: ' + config.id,
-                  style: CupertinoTheme.of(context).textTheme.textStyle),
-            ),
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: EdgeInsets.only(left: 9, bottom: 4),
+              padding: EdgeInsets.only(bottom: 8),
               child: Text(
-                'Date: ' + config.date,
-                style: DefaultTextStyle.of(context)
-                    .style
-                    .apply(fontSizeFactor: 1.2),
+                'Datum : ' + config.date.substring(0, 10),
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  color: Color(0xFF000000),
+                ),
               ),
             ),
           ),
           Align(
             alignment: Alignment.centerLeft,
             child: Padding(
-              padding: EdgeInsets.only(left: 9, bottom: 4),
+              padding: EdgeInsets.only(bottom: 4),
               child: Text(
-                'Ingredients',
-                style: DefaultTextStyle.of(context)
-                    .style
-                    .apply(fontSizeFactor: 1.2),
+                'Getränk :',
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  color: Color(0xFF000000),
+                ),
               ),
             ),
           ),
           Container(
               decoration: BoxDecoration(
-                  border: Border.all(color: Colors.blueAccent),
-                  color: Colors.yellow),
+                  border: Border.all(
+                    color: Color(0x80000000),
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  color: Color(0xFFFFFFFF)
+              ),
               padding: EdgeInsets.all(8),
               child: Column(children: [
                 Table(children: _createIngredientRows(config.ingredient))
@@ -117,8 +138,7 @@ class ConfigStatelessWidget extends StatelessWidget {
                 ],
               ):Text(''),
             ),
-          )  
-         
+          )
         ]),
       );
     }
