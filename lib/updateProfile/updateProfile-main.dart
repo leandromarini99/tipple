@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tipple_app/updateProfile/updateUserSetting-menu.dart';
 import 'updateUserSettings-page.dart';
 
 void main() {
@@ -22,7 +23,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: UpdateUserSettings(),
+      home: UpdateUserSettingsMenu(),
     );
   }
 }
