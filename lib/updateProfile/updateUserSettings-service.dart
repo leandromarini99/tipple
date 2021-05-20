@@ -17,7 +17,7 @@ updateUser(Map<String, dynamic> users, dynamic id) async {
   print(response.statusCode);
 }
 
-updateUserPasswordToJson(AppSignIn id, String password) async {
+updateUserPasswordToJson(String id, String password) async {
   Future<Registry> jsonUser = fetchUserRegistry(id);
   Registry updateRegistry = await jsonUser;
   Map<String, dynamic> updateMap = Map<String, dynamic>();
@@ -35,7 +35,28 @@ updateUserPasswordToJson(AppSignIn id, String password) async {
   address['zipCode'] = updateRegistry.address.zipCode;
   address['street'] = updateRegistry.address.street;
   address['houseNumber'] = updateRegistry.address.houseNumber;
+  // löschen des Users
+  updateUser(updateMap, id);
+}
 
+updateUserEmailToJson(String id, String email) async {
+  Future<Registry> jsonUser = fetchUserRegistry(id);
+  Registry updateRegistry = await jsonUser;
+  Map<String, dynamic> updateMap = Map<String, dynamic>();
+  updateMap['id'] = id;
+  updateMap['firstName'] = updateRegistry.firstName;
+  updateMap['lastName'] = updateRegistry.lastName;
+  updateMap['gender'] = updateRegistry.gender;
+  updateMap['email'] = email;
+  updateMap['password'] = updateRegistry.email;
+
+  //Map Key/Value List für Users.Address
+  Map<String, dynamic> address = Map<String, dynamic>();
+  updateMap['address'] = address;
+  address['town'] = updateRegistry.address.town;
+  address['zipCode'] = updateRegistry.address.zipCode;
+  address['street'] = updateRegistry.address.street;
+  address['houseNumber'] = updateRegistry.address.houseNumber;
   // löschen des Users
   updateUser(updateMap, id);
 }

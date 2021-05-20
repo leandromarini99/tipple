@@ -5,6 +5,9 @@ import 'app-signUp.dart';
 import 'registry.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:tipple_app/front-end/menu-Items.dart';
+
+String userId;
 
 class AppSignIn extends StatefulWidget {
   @override
@@ -17,7 +20,6 @@ class _AppSignInState extends State<AppSignIn> {
   bool loggedIn = false;
   String msgEmailIncorrect = 'Email nicht vorhanden';
   String msgPasswordIncorrect = 'Dein angegebenes Passwort ist falsch';
-  String id;
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +132,15 @@ class _AppSignInState extends State<AppSignIn> {
                     child: ElevatedButton(
                       // padding: EdgeInsets.all(17.0),
                       onPressed: () {
+                        print(userId);
                         login(emailController.text);
+                        if (loggedIn) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyHomePage()),
+                          );
+                        }
                       },
                       child: Text(
                         "Login",
@@ -213,9 +223,9 @@ class _AppSignInState extends State<AppSignIn> {
   }
   // E
 
-  void login(String emailControl) async {
+  login(String emailControl) async {
     Registry registry = await getUserByEmail(emailControl);
-    id = registry.id;
+    userId = registry.id;
     if (registry == null) {
       print(msgEmailIncorrect);
     }

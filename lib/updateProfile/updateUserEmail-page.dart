@@ -4,15 +4,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/rendering.dart';
 import 'package:tipple_app/registry/app-signIn.dart' as signIn;
 
-class UpdateUserSettings extends StatefulWidget {
+class UpdateUserSettingsEmail extends StatefulWidget {
   @override
-  _UpdateUserSettings createState() => _UpdateUserSettings();
+  _UpdateUserSettingsEmail createState() => _UpdateUserSettingsEmail();
 }
 
-class _UpdateUserSettings extends State<UpdateUserSettings> {
+class _UpdateUserSettingsEmail extends State<UpdateUserSettingsEmail> {
   TextEditingController emailController = new TextEditingController();
-  TextEditingController passwordController = new TextEditingController();
-  TextEditingController repeatPasswordController = new TextEditingController();
+  TextEditingController repeatEmailController = new TextEditingController();
   String msgPasswordUpdated = 'Du hast dein Passwort erfolgreich geändert.';
   String id = signIn.userId;
 
@@ -46,13 +45,13 @@ class _UpdateUserSettings extends State<UpdateUserSettings> {
                   SizedBox(
                     height: 15,
                   ),
-                  _textbox('Neues Passwort', passwordController),
+                  _textbox('Neue Email', emailController),
 
                   //repeat PW
                   SizedBox(
                     height: 15,
                   ),
-                  _textbox('Passwort wiederholen', repeatPasswordController),
+                  _textbox('Email wiederholen', repeatEmailController),
 
                   //Login Btn
                   SizedBox(
@@ -65,11 +64,10 @@ class _UpdateUserSettings extends State<UpdateUserSettings> {
                       // padding: EdgeInsets.all(17.0),
                       onPressed: () {
                         print(id);
-                        updateUserPasswordToJson(
-                            id, repeatPasswordController.text);
+                        updateUserEmailToJson(id, repeatEmailController.text);
                       },
                       child: Text(
-                        "Passwort ändern",
+                        "Email ändern",
                         style: GoogleFonts.poppins(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
