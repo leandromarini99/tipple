@@ -172,6 +172,7 @@ class AppSignUp extends StatelessWidget {
                     textAlign: TextAlign.center,
                     controller: passwordController,
                     showCursor: true,
+                    obscureText: true,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -200,6 +201,7 @@ class AppSignUp extends StatelessWidget {
                     textAlign: TextAlign.center,
                     controller: repeatPassworController,
                     showCursor: true,
+                    obscureText: true,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),

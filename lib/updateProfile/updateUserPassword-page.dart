@@ -103,6 +103,7 @@ Widget _textbox(String hintText, TextEditingController inputController) {
     textAlign: TextAlign.center,
     controller: inputController,
     showCursor: true,
+    obscureText: true,
     decoration: InputDecoration(
       border: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
