@@ -23,25 +23,11 @@ class AppSignUp extends StatelessWidget {
             fit: BoxFit.cover,
           )
         ),
-        padding: EdgeInsets.only(left: 20, right: 20, top: 25, bottom: 16),
+        padding: EdgeInsets.only(left: 20, right: 20, top: 100, bottom: 16),
         width: double.infinity,
         height: double.infinity,
         child: Column(
           children: <Widget>[
-            Flexible(
-              flex: 1,
-              child: InkWell(
-                child: Container(
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Icon(Icons.close),
-                  ),
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ),
             Flexible(
               flex: 5,
               child: Column(
@@ -244,7 +230,7 @@ class AppSignUp extends StatelessWidget {
                       child: Text(
                         "Registrieren",
                         style: GoogleFonts.poppins(
-                          fontSize: 14,
+                          fontSize: 16,
                           fontWeight: FontWeight.w700,
                           color: Color(0xFFFFFFFF),
                         ),
