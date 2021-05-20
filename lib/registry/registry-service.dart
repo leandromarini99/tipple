@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-
 import 'registry.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -100,7 +99,7 @@ deleteUserFromJson(String id) {
 
 // Get User from localhost:8990/users/{id}
 //A
-Future<Registry> fetchUserRegistry(String id) async {
+Future<Registry> fetchUserRegistry(dynamic id /* String id */) async {
   var url = Uri.http('10.0.2.2:8990', 'users/$id');
 
   final response = await http.get(url);

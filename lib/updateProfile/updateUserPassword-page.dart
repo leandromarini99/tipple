@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'updateUserSettings-service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/rendering.dart';
-import 'dart:convert';
+import 'package:tipple_app/registry/app-signIn.dart';
 
 class UpdateUserSettings extends StatefulWidget {
   @override
@@ -14,6 +14,7 @@ class _UpdateUserSettings extends State<UpdateUserSettings> {
   TextEditingController passwordController = new TextEditingController();
   TextEditingController repeatPasswordController = new TextEditingController();
   String msgPasswordUpdated = 'Du hast dein Passwort erfolgreich geändert.';
+  AppSignIn id;
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +41,6 @@ class _UpdateUserSettings extends State<UpdateUserSettings> {
                     height: 130,
                     alignment: Alignment.center,
                   ),
-                  //Enter Mail
-                  SizedBox(
-                    height: 15,
-                  ),
-                  _textbox('Email', emailController),
 
                   //Enter PW
                   SizedBox(
@@ -67,7 +63,10 @@ class _UpdateUserSettings extends State<UpdateUserSettings> {
                     width: double.infinity,
                     child: ElevatedButton(
                       // padding: EdgeInsets.all(17.0),
-                      onPressed: () {},
+                      onPressed: () {
+                        updateUserPasswordToJson(
+                            id, repeatPasswordController.text);
+                      },
                       child: Text(
                         "Passwort ändern",
                         style: GoogleFonts.poppins(

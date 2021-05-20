@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'updateUserSettings-page.dart';
+import 'updateUserPassword-page.dart';
 
 void main() {
   runApp(MyApp());
