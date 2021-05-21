@@ -5,63 +5,98 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tipple_app/front-end/cart.dart';
-import 'package:tipple_app/ingredient/ingredient.dart';
+import 'package:tipple_app/front-end/theme.dart';
+
+/// A proxy of the catalog of items the user can buy.
+///
+/// In a real app, this might be backed by a backend and cached on device.
+/// In this sample app, the catalog is procedurally generated and infinite.
+///
+/// For simplicity, the catalog is expected to be immutable (no products are
+/// expected to be added, removed or changed during the execution of the app).
+class CatalogModel {
+  static List<String> itemNames = [
+    'Mango',
+    'Banane',
+    'Orange',
+    'Recursion',
+    'Sprint',
+    'Heisenbug',
+    'Spaghetti',
+    'Hydra Code',
+    'Off-By-One',
+    'Scope',
+    'Callback',
+    'Closure',
+    'Automata',
+    'Bit Shift',
+    'Currying',
+  ];
+
+  /// Get item by [id].
+  ///
+  /// In this sample, the catalog is infinite, looping over [itemNames].
+  Item getById(int id) => Item(id, itemNames[id % itemNames.length]);
+
+  /// Get item by its position in the catalog.
+  Item getByPosition(int position) {
+    // In this simplified case, an item's position in the catalog
+    // is also its id.
+    return getById(position);
+  }
+}
+
+@immutable
+class Item {
+  final int id;
+  final String name;
+  final Color color;
+  final double price = 1.5;
+
+  Item(this.id, this.name)
+      // To make the sample app look nicer, each item is given one of the
+      // Material Design primary colors.
+      : color = Colors.primaries[id % Colors.primaries.length];
+
+  @override
+  int get hashCode => id;
+
+  @override
+  bool operator ==(Object other) => other is Item && other.id == id;
+}
+
+// Copyright 2019 The Flutter team. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 
 class MyCatalog extends StatelessWidget {
-  final Future<List<Ingredient>> ingredients;
-  const MyCatalog({this.ingredients, Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    // return Scaffold(
-    //   body: CustomScrollView(
-    //     slivers: [
-    //       _MyAppBar(),
-    //       SliverToBoxAdapter(child: SizedBox(height: 12)),
-    //       SliverList(
-    //         delegate: SliverChildBuilderDelegate(
-    //             (context, index) => _MyListItem(index)),
-    //       ),
-    //     ],
-    //   ),
-    // );
-    return FutureBuilder<List<Ingredient>>(
-        future: this.ingredients,
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.none:
-            case ConnectionState.waiting:
-              return CircularProgressIndicator();
-            default:
-              if (snapshot.hasError)
-                return new Text('Error: ${snapshot.error}');
-              else
-                // return Scaffold(
-                //   body: CustomScrollView(
-                //     slivers: [
-                //       _MyAppBar(),
-                //       SliverToBoxAdapter(child: SizedBox(height: 12)),
-                //       SliverList(
-                //         delegate: SliverChildBuilderDelegate(
-                //             (context, index) => _MyListItem(snapshot.data)),
-                //       ),
-                //     ],
-                //   ),
-                // );
-                return _MyListItem(snapshot.data);
-          }
-        });
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          _MyAppBar(),
+          SliverToBoxAdapter(child: SizedBox(height: 12)),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+                (context, index) => _MyListItem(index)),
+          ),
+        ],
+      ),
+    );
   }
 }
 
 class _AddButton extends StatelessWidget {
-  final Ingredient ingredient;
+  final Item item;
 
-  const _AddButton({this.ingredient, Key key}) : super(key: key);
+  const _AddButton({ this.item, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var isInCart = context.select<CartModel, bool>(
-      (cart) => cart.ingredients.contains(ingredient),
+      // Here, we are only interested whether [item] is inside the cart.
+      (cart) => cart.items.contains(item),
     );
 
     return TextButton(
@@ -69,7 +104,7 @@ class _AddButton extends StatelessWidget {
           ? null
           : () {
               var cart = context.read<CartModel>();
-              cart.add(ingredient);
+              cart.add(item);
             },
       style: ButtonStyle(
         overlayColor: MaterialStateProperty.resolveWith<Color>((states) {
@@ -101,45 +136,75 @@ class _MyAppBar extends StatelessWidget {
 }
 
 class _MyListItem extends StatelessWidget {
-  // final int index;
-  final List<Ingredient> ingredients;
+  final int index;
 
-  _MyListItem(this.ingredients, {Key key}) : super(key: key);
+  _MyListItem(this.index, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // var textTheme = Theme.of(context).textTheme.headline6;
+    var item = context.select<CatalogModel, Item>(
+      // Here, we are only interested in the item at [index]. We don't care
+      // about any other change.
+      (catalog) => catalog.getByPosition(index),
+    );
+    var textTheme = Theme.of(context).textTheme.headline6;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: LimitedBox(
         maxHeight: 48,
         child: Row(
-          children: _createIngredientRows(context, ingredients),
+          children: [
+            Image.network(
+                'https://www.ndr.de/ratgeber/kochen/warenkunde/orangen156_v-contentxl.jpg'),
+            SizedBox(width: 24),
+            Expanded(
+              child: Text(item.name, style: textTheme),
+            ),
+            SizedBox(width: 24),
+            _AddButton(item: item),
+          ],
         ),
       ),
     );
   }
 }
 
-List<Row> _createIngredientRows(
-    BuildContext context, List<Ingredient> ingredients) {
-  var textTheme = Theme.of(context).textTheme.headline6;
-  List<Row> rows = [];
-  // prepare header
+void main() {
+  runApp(MyApp());
+}
 
-  // prepare data
-  for (Ingredient ingredient in ingredients) {
-    rows.add(Row(children: [
-      Image.network(
-          'https://www.ndr.de/ratgeber/kochen/warenkunde/orangen156_v-contentxl.jpg'),
-      SizedBox(width: 24),
-      Expanded(
-        child: Text(ingredient.name, style: textTheme),
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Using MultiProvider is convenient when providing multiple objects.
+    return MultiProvider(
+      providers: [
+        // In this sample app, CatalogModel never changes, so a simple Provider
+        // is sufficient.
+        Provider(create: (context) => CatalogModel()),
+        // CartModel is implemented as a ChangeNotifier, which calls for the use
+        // of ChangeNotifierProvider. Moreover, CartModel depends
+        // on CatalogModel, so a ProxyProvider is needed.
+        ChangeNotifierProxyProvider<CatalogModel, CartModel>(
+          create: (context) => CartModel(),
+          update: (context, catalog, cart) {
+            if (cart == null) throw ArgumentError.notNull('cart');
+            cart.catalog = catalog;
+            return cart;
+          },
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Provider Demo',
+        theme: appTheme,
+        initialRoute: '/',
+        routes: {
+          
+          '/': (context) => MyCatalog(),
+          '/cart': (context) => MyCart(),
+        },
       ),
-      SizedBox(width: 24),
-      _AddButton(ingredient: ingredient),
-    ]));
+    );
   }
-  return rows;
 }
