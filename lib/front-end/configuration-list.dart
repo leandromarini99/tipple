@@ -144,7 +144,7 @@ class ConfigStatelessWidget extends StatelessWidget {
               child: (!isInCart)? Row(
                 children: <Widget>[
                   CheckboxWidget(share: config.share),
-                  Expanded(child: Text('Do you want to share it?')),
+                  Expanded(child: Text('Möchtest du diese Konfiguration teilen?')),
                 ],
               ):Text(''),
             ),
@@ -217,7 +217,7 @@ class _CheckboxWidgetState extends State<CheckboxWidget> {
       if (isChecked) {
         return Colors.green[600];
       }
-      return Colors.yellow[600];
+      return Color(0xFFFCC919);
     }
 
     return Checkbox(
