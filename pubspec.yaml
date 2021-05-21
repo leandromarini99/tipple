@@ -63,6 +63,21 @@ flutter:
     - user-profile.png
     - logo.png
     - header.png
+    - ananas.png
+    - apfel.png
+    - avocado.png
+    - banane.png
+    - birne.png
+    - erdbeere.png
+    - kiwi.png
+    - kokosnuss.png
+    - mango.png
+    - karotte.png
+    - orange.png
+    - tomate.png
+    - wassermelone.png
+    - weintraube.png
+    - zitrone.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

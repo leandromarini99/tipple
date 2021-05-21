@@ -5,6 +5,8 @@ import 'package:tipple_app/front-end/configuration-list.dart';
 import 'package:tipple_app/registry/app-signIn.dart';
 import 'package:tipple_app/updateProfile/updateUserSetting-menu.dart';
 
+import 'catalog.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -280,7 +282,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      ConfiguratorPage(); //TODO
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MyAppCataltog()),
+                      );
                     },
                     child: Text(
                       "Zum Konfigurator",
