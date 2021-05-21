@@ -1,7 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:tipple_app/front-end/catalog.dart';
+
+import 'menu-Items.dart';
 
 class CartModel extends ChangeNotifier {
   /// The private field backing [catalog].
@@ -38,8 +41,6 @@ class CartModel extends ChangeNotifier {
 
   void remove(Item item) {
     _itemIds.remove(item.id);
-    // Don't forget to tell dependent widgets to rebuild _every time_
-    // you change the model.
     notifyListeners();
   }
 }
@@ -49,11 +50,23 @@ class MyCart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cart', style: Theme.of(context).textTheme.headline1),
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFFFCC919),
+        title: Text(
+            'Konfiguration',
+            style: GoogleFonts.poppins(
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+              fontStyle: FontStyle.italic,
+              color: Color(0xFFFFFFFF),
+            ),
+        ),
       ),
       body: Container(
-        color: Colors.yellow,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/background.png"),
+              fit: BoxFit.cover,
+            )),
         child: Column(
           children: [
             Expanded(
@@ -119,15 +132,50 @@ class _CartTotal extends StatelessWidget {
             // the rest of the widgets in this build method.
             Consumer<CartModel>(
                 builder: (context, cart, child) =>
-                    Text('\$${cart.totalPrice}', style: hugeStyle)),
+                    Text('\€${cart.totalPrice}' + '0',
+                      style: GoogleFonts.poppins(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF000000),
+                      ),
+                    )
+
+            ),
             SizedBox(width: 24),
-            TextButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Deine Bestellung war erfolgreich aufgenommen worden.')));
-              },
-              style: TextButton.styleFrom(primary: Colors.white),
-              child: Text('BUY'),
+            Container(
+              child: ElevatedButton(
+
+                onPressed: () {
+                  showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text('Bestellung erfolgreich!'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => MyHomePage()),
+                          ),
+                          child: const Text('Alles klar'),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+
+                child: Text(
+                  'Bestellen',
+                  style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFFFFFFFF),
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.only(top: 17.0, bottom: 17.0, left: 30.0, right: 30.0),
+                  primary: Color(0xFFFCC919),
+                ),
+              ),
             ),
           ],
         ),

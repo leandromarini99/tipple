@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:tipple_app/front-end/cart.dart';
 import 'package:tipple_app/front-end/theme.dart';
@@ -16,21 +17,21 @@ import 'package:tipple_app/front-end/theme.dart';
 /// expected to be added, removed or changed during the execution of the app).
 class CatalogModel {
   static List<String> itemNames = [
-    'Mango',
-    'Banane',
-    'Orange',
-    'Recursion',
-    'Sprint',
-    'Heisenbug',
-    'Spaghetti',
-    'Hydra Code',
-    'Off-By-One',
-    'Scope',
-    'Callback',
-    'Closure',
-    'Automata',
-    'Bit Shift',
-    'Currying',
+    'ananas',
+    'apfel',
+    'avocado',
+    'banane',
+    'birne',
+    'erdbeere',
+    'karotte',
+    'kiwi',
+    'kokosnuss',
+    'mango',
+    'orange',
+    'tomate',
+    'wassermelone',
+    'weintraube',
+    'zitrone',
   ];
 
   /// Get item by [id].
@@ -51,7 +52,7 @@ class Item {
   final int id;
   final String name;
   final Color color;
-  final double price = 1.5;
+  final double price = 1.50;
 
   Item(this.id, this.name)
       // To make the sample app look nicer, each item is given one of the
@@ -73,15 +74,22 @@ class MyCatalog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          _MyAppBar(),
-          SliverToBoxAdapter(child: SizedBox(height: 12)),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-                (context, index) => _MyListItem(index)),
-          ),
-        ],
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/background.png"),
+              fit: BoxFit.cover,
+            )),
+        child: CustomScrollView(
+          slivers: [
+            _MyAppBar(),
+            SliverToBoxAdapter(child: SizedBox(height: 12)),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                  (context, index) => _MyListItem(index)),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -114,7 +122,14 @@ class _AddButton extends StatelessWidget {
           return null; // Defer to the widget's default.
         }),
       ),
-      child: isInCart ? Icon(Icons.check, semanticLabel: 'ADDED') : Text('ADD'),
+      child: isInCart ? Icon(Icons.check, semanticLabel: 'ADDED') : Text(
+          'ADD',
+        style: GoogleFonts.poppins(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: Color(0xFFFCC919),
+        ),
+      ),
     );
   }
 }
@@ -123,7 +138,8 @@ class _MyAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      title: Text('Catalog', style: Theme.of(context).textTheme.headline1),
+      backgroundColor: Color(0xFFFCC919),
+      title: Text('Konfigurator', style: Theme.of(context).textTheme.headline1),
       floating: true,
       actions: [
         IconButton(
@@ -155,11 +171,21 @@ class _MyListItem extends StatelessWidget {
         maxHeight: 48,
         child: Row(
           children: [
-            Image.network(
-                'https://www.ndr.de/ratgeber/kochen/warenkunde/orangen156_v-contentxl.jpg'),
+            Image.asset(
+              // build(context)
+              "assets/" + item.name + ".png",
+              width: 50,
+              height: 50,
+            ),
             SizedBox(width: 24),
             Expanded(
-              child: Text(item.name, style: textTheme),
+              child: Text(
+                  item.name,
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFF000000),
+                ),),
             ),
             SizedBox(width: 24),
             _AddButton(item: item),
@@ -171,10 +197,10 @@ class _MyListItem extends StatelessWidget {
 }
 
 void main() {
-  runApp(MyApp());
+  runApp(MyAppCataltog());
 }
 
-class MyApp extends StatelessWidget {
+class MyAppCataltog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Using MultiProvider is convenient when providing multiple objects.
