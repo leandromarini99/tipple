@@ -221,7 +221,19 @@ class _AppSignInState extends State<AppSignIn> {
       print(response.body);
       return Registry.fromJson(json.decode(response.body));
     } else {
-      throw Exception(msgEmailIncorrect);
+      showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+        title: const Text('Passwort  oder E-Mail'),
+        content: const Text('stimmen nicht überein'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'Neuer Versuch'),
+            child: const Text('Neuer Versuch'),
+          ),
+        ],
+      ),
+      );
     }
   }
   // E

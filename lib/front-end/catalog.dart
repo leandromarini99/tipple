@@ -223,6 +223,7 @@ class MyAppCataltog extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Provider Demo',
+        debugShowCheckedModeBanner: false,
         theme: appTheme,
         initialRoute: '/',
         routes: {
