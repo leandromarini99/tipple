@@ -26,8 +26,6 @@ class _AppSignInState extends State<AppSignIn> {
 
   @override
   Widget build(BuildContext context) {
-    emailController.text = "toni@tipple.de";
-    passwordController.text= "12345678";
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
