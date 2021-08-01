@@ -1,9 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'registry.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-Future<List<Registry>> fetchRegistry() async {
+ const  Map<String, String> HEADER = {
+  'Content-type': 'application/json',
+  'Accept': 'application/json',
+};
+
+
+Future<List<Registry>> fetchAllUsers() async {
   var url = Uri.http('10.0.2.2:8990', 'users');
 
   final response = await http.get(url);
@@ -20,14 +25,11 @@ Future<List<Registry>> fetchRegistry() async {
 // Erstelle User in die Userdatenbank. loclhost:8990/users
 // A
 createUser(Map<String, dynamic> users) async {
-  const Map<String, String> header = {
-    'Content-type': 'application/json',
-    'Accept': 'application/json',
-  };
+
   var encodedBody = json.encode(users);
   var url = Uri.http('10.0.2.2:8990', 'users');
   http.Response response =
-      await http.post(url, body: encodedBody, headers: header);
+      await http.post(url, body: encodedBody, headers: HEADER);
   print(response.statusCode);
 }
 
@@ -64,19 +66,15 @@ postUserToJson(
 // Lösche User aus der Userdatenbank localhost:8990/users/{id}
 // A
 deleteUser(Map<String, dynamic> users, String id) async {
-  const Map<String, String> header = {
-    'Content-type': 'application/json',
-    'Accept': 'application/json',
-  };
+
   var encodedBody = json.encode(users);
   var url = Uri.http('10.0.2.2:8990', 'users/$id');
   http.Response response =
-      await http.delete(url, body: encodedBody, headers: header);
+      await http.delete(url, body: null, headers: HEADER);
   print(response.statusCode);
 }
 
 deleteUserFromJson(String id) {
-  // Map Key/Value für Users
   // Map Key/Value für Users
   Map<String, dynamic> json = Map<String, dynamic>();
   json['firstName'] = '';
@@ -99,7 +97,7 @@ deleteUserFromJson(String id) {
 
 // Get User from localhost:8990/users/{id}
 //A
-Future<Registry> fetchUserRegistry(dynamic id /* String id */) async {
+Future<Registry> fetchUserById( String id) async {
   var url = Uri.http('10.0.2.2:8990', 'users/$id');
 
   final response = await http.get(url);
@@ -114,37 +112,18 @@ Future<Registry> fetchUserRegistry(dynamic id /* String id */) async {
 // Update User aus der Userdatenbank localhost:8990/users/{id}
 // A
 updateUser(Map<String, dynamic> users, String id) async {
-  const Map<String, String> header = {
-    'Content-type': 'application/json',
-    'Accept': 'application/json',
-  };
+
   var encodedBody = json.encode(users);
   var url = Uri.http('10.0.2.2:8990', 'users/$id');
   http.Response response =
-      await http.put(url, body: encodedBody, headers: header);
+      await http.put(url, body: encodedBody, headers: HEADER);
   print(response.statusCode);
 }
-
-updateUserToJson(String id) async {
-  Future<Registry> jsonUser = fetchUserRegistry(id);
-  Registry updateRegistry = await jsonUser;
-  Map<String, dynamic> updateMap = Map<String, dynamic>();
-  updateMap['id'] = id;
-  updateMap['firstName'] = updateRegistry.firstName;
-  updateMap['lastName'] = updateRegistry.lastName;
-  updateMap['gender'] = updateRegistry.gender;
-  updateMap['email'] = 'mailaddress';
-  updateMap['password'] = updateRegistry.password;
-
-  //Map Key/Value List für Users.Address
-  Map<String, dynamic> address = Map<String, dynamic>();
-  updateMap['address'] = address;
-  address['town'] = updateRegistry.address.town;
-  address['zipCode'] = updateRegistry.address.zipCode;
-  address['street'] = updateRegistry.address.street;
-  address['houseNumber'] = updateRegistry.address.houseNumber;
-
-  // löschen des Users
-  updateUser(updateMap, id);
-}
 // E
+
+ Future<int> checkEmailAvailability(String email) async {
+  var url = Uri.http('10.0.2.2:8990', 'users/check/$email');
+
+  final response = await http.get(url);
+  return response.statusCode;
+}

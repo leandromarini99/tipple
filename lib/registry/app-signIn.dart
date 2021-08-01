@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tipple_app/menu-Items.dart';
+import 'package:tipple_app/registry/registry-service.dart';
 import 'app-signUp.dart';
-import 'registry.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:tipple_app/front-end/menu-Items.dart';
+import 'registry-utility.dart';
 
 String userId;
 String userFirstName;
@@ -25,6 +26,8 @@ class _AppSignInState extends State<AppSignIn> {
 
   @override
   Widget build(BuildContext context) {
+    emailController.text = "toni@tipple.de";
+    passwordController.text= "12345678";
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -40,8 +43,10 @@ class _AppSignInState extends State<AppSignIn> {
           children: <Widget>[
             Flexible(
               flex: 5,
+              fit: FlexFit.tight,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Container(
                     width: 130,
@@ -50,81 +55,18 @@ class _AppSignInState extends State<AppSignIn> {
                   ),
 
                   //Intro Text
-                  RichText(
-                    text: TextSpan(
-                      text: 'Moin!',
-                      style: GoogleFonts.poppins(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xFF000000),
-                      ),
-                    ),
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      text: 'Einloggen und schon kann es losgehen',
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        color: Color(0xFF000000),
-                      ),
-                    ),
-                  ),
-
+                  greet(),
+                  displayMsg('Einloggen und schon kann es losgehen'),
                   //Enter Mail
                   SizedBox(
                     height: 15,
                   ),
-                  TextField(
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      color: Color(0x80000000),
-                    ),
-                    textAlign: TextAlign.center,
-                    controller: emailController,
-                    showCursor: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        borderSide: BorderSide(
-                          width: 1,
-                          style: BorderStyle.none,
-                        ),
-                      ),
-                      filled: true,
-                      fillColor: Color(0xFFFFFFFF),
-                      hintStyle: TextStyle(color: Color(0x80000000)),
-                      hintText: "E-Mail",
-                    ),
-                  ),
-
+                  createTextField(emailController,false, "E_Mail"),
                   //Enter PW
                   SizedBox(
                     height: 15,
                   ),
-                  TextField(
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      color: Color(0x80000000),
-                    ),
-                    textAlign: TextAlign.center,
-                    controller: passwordController,
-                    showCursor: true,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        borderSide: BorderSide(
-                          width: 1,
-                          style: BorderStyle.none,
-                        ),
-                      ),
-                      filled: true,
-                      fillColor: Color(0xFFFFFFFF),
-                      hintStyle: TextStyle(color: Color(0x80000000)),
-                      hintText: "Passwort",
-                    ),
-                  ),
-
+                  createTextField(passwordController,true, "Password"),
                   //Login Btn
                   SizedBox(
                     height: 15,
@@ -134,14 +76,14 @@ class _AppSignInState extends State<AppSignIn> {
                     width: double.infinity,
                     child: ElevatedButton(
                       // padding: EdgeInsets.all(17.0),
-                      onPressed: () {
+                      onPressed: () async{
                         print(userId);
-                        login(emailController.text);
+                        await login(emailController.text);
                         if (loggedIn) {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MyHomePage()),
+                                builder: (context) => MainPage()),
                           );
                         }
                       },
@@ -166,45 +108,10 @@ class _AppSignInState extends State<AppSignIn> {
                 ],
               ),
             ),
-            Flexible(
-              flex: 1,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      child: Text(
-                        "Du hast noch keinen Account? ",
-                        style: GoogleFonts.poppins(
-                          fontSize: 14,
-                          color: Color(0xFF000000),
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () => {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => AppSignUp()),
-                        )
-                      },
-                      child: Container(
-                        child: Text(
-                          "Registrieren",
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFF1F6C9C),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )
+            createRowWithNavigator('Du hast noch keinen Account?',
+                context,
+                MaterialPageRoute(builder: (context) => AppSignUp()),
+              'Registrieren')
           ],
         ),
       ),
@@ -213,48 +120,41 @@ class _AppSignInState extends State<AppSignIn> {
 
   // Get user by email - controllerEmail = email
   //A
-  Future<Registry> getUserByEmail(String email) async {
-    var url = Uri.http('10.0.2.2:8990', 'users/email/$email');
-
-    final response = await http.get(url);
-    if (response.statusCode == 200) {
-      print(response.body);
-      return Registry.fromJson(json.decode(response.body));
-    } else {
-      showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-        title: const Text('Passwort  oder E-Mail'),
-        content: const Text('stimmen nicht überein'),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.pop(context, 'Neuer Versuch'),
-            child: const Text('Neuer Versuch'),
-          ),
-        ],
-      ),
-      );
-    }
+  Future<dynamic> postCredential(String email) async {
+    var url = Uri.http('10.0.2.2:8990', 'users/login');
+    Map<String, dynamic> loginMap = Map<String, dynamic>();
+    loginMap["email"] = emailController.text;
+    loginMap["password"] = passwordController.text;
+    var encodedBody = json.encode(loginMap);
+    http.Response response =
+    await http.post(url, body: encodedBody, headers: HEADER);
+    print(response.body);
+    return json.decode(response.body);
   }
   // E
 
-  login(String emailControl) async {
-    Registry registry = await getUserByEmail(emailControl);
-    userId = registry.id;
-    userFirstName = registry.firstName;
-    userLastName = registry.lastName;
-
-    if (registry == null) {
-      print(msgEmailIncorrect);
+  login(String emailControl) async{
+    Map<String, dynamic> json = await postCredential(emailControl);
+    loggedIn = json["verified"];
+    if(loggedIn) {
+      userId = json["userId"];
+      userFirstName = json["firstName"];
+      userLastName = json["lastName"];
+    }else {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Passwort  oder E-Mail'),
+          content: const Text('stimmen nicht überein'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Neuer Versuch'),
+              child: const Text('Neuer Versuch'),
+            ),
+          ],
+        ),
+      );
     }
 
-    bool checkEmail = emailControl == registry.email;
-    bool checkPassword = passwordController.text == registry.password;
-    if (checkEmail && checkPassword) {
-      loggedIn = true;
-      print('Du hast dich erfolgreich eingeloggt.');
-    } else {
-      print(msgPasswordIncorrect);
-    }
   }
 }

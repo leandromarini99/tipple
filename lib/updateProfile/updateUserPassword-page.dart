@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tipple_app/front-end/menu-Items.dart';
+import 'package:tipple_app/menu-Items.dart';
 import 'updateUserSettings-service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/rendering.dart';
@@ -97,7 +97,7 @@ class _UpdateUserSettings extends State<UpdateUserSettings> {
                                   onPressed: () => Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => MyHomePage()),
+                                        builder: (context) => MainPage()),
                                   ),
                                   child: const Text('Alles klar'),
                                 ),

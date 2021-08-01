@@ -1,3 +1,4 @@
+
 class Ingredient {
 
   const Ingredient({this.id, this.name, this.url, this.price});
@@ -15,4 +16,24 @@ class Ingredient {
         url: json['url'],
         price: json['price']);
   }
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "name": name,
+    "url": url,
+    "price": price
+  };
+
+  @override
+  bool operator ==(Object other) {
+    return  (other is Ingredient) && this.name == other.name;
+  }
+
+  @override
+  int get hashCode => super.hashCode;
+
+  String get image => url ==null
+      ? 'assets/' + name.toLowerCase() +'.png'
+      : url.replaceAll('www.tipple.de/', '') +'.png';
+
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'app-signIn.dart';
 import 'package:tipple_app/registry/registry-service.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'registry-utility.dart';
 
 class AppSignUp extends StatelessWidget {
   final TextEditingController firstNameController = new TextEditingController();
@@ -9,20 +10,18 @@ class AppSignUp extends StatelessWidget {
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
   final TextEditingController repeatPassworController =
-      new TextEditingController();
+  new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/background.png"),
-            fit: BoxFit.cover,
-          )
-        ),
+            image: DecorationImage(
+          image: AssetImage("assets/background.png"),
+          fit: BoxFit.cover,
+        )),
         padding: EdgeInsets.only(left: 20, right: 20, top: 100, bottom: 16),
         width: double.infinity,
         height: double.infinity,
@@ -39,185 +38,38 @@ class AppSignUp extends StatelessWidget {
                     alignment: Alignment.center,
                   ),
 
-
                   //Intro Text
-                  RichText(
-                    text: TextSpan(
-                      text: 'Moin!',
-                      style: GoogleFonts.poppins(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xFF000000),
-                      ),
-                    ),
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      text: 'Registrieren und schon kann es losgehen',
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        color: Color(0xFF000000),
-                      ),
-                    ),
-                  ),
-
-
+                 greet(),
+                 displayMsg('Registrieren und schon kann es losgehen'),
                   //Enter FirstName
                   SizedBox(
                     height: 15,
                   ),
                   Row(
                     children: <Widget>[
-                      Flexible(
-                        flex: 1,
-                        child: TextField(
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            color: Color(0x80000000),
-                          ),
-                          textAlign: TextAlign.center,
-                          controller: firstNameController,
-                          showCursor: true,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                              borderSide: BorderSide(
-                                width: 1,
-                                style: BorderStyle.none,
-                              ),
-                            ),
-                            filled: true,
-                            fillColor: Color(0xFFFFFFFF),
-                            hintStyle: TextStyle(
-                              color: Color(0x80000000),
-                            ),
-                            hintText: "Vorname",
-                          ),
-                        ),
-                      ),
-
-
-                      //Enter lastName
+                     createFlexible(firstNameController, "Nachname"),
                       SizedBox(
                         width: 10,
                       ),
-                      Flexible(
-                        flex: 1,
-                        child: TextField(
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            color: Color(0x80000000),
-                          ),
-                          textAlign: TextAlign.center,
-                          controller: lastNameController,
-                          showCursor: true,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                              borderSide: BorderSide(
-                                width: 1,
-                                style: BorderStyle.none,
-                              ),
-                            ),
-                            filled: true,
-                            fillColor: Color(0xFFFFFFFF),
-                            hintStyle: TextStyle(
-                              color: Color(0x80000000),
-                            ),
-                            hintText: "Nachname",
-                          ),
-                        ),
-                      ),
+                      createFlexible(lastNameController, "Vorname"),
                     ],
                   ),
-
 
                   //Enter Mail
                   SizedBox(
                     height: 15,
                   ),
-                  TextField(
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      color: Color(0x80000000),
-                    ),
-                    textAlign: TextAlign.center,
-                    controller: emailController,
-                    showCursor: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        borderSide: BorderSide(
-                          width: 1,
-                          style: BorderStyle.none,
-                        ),
-                      ),
-                      filled: true,
-                      fillColor: Color(0xFFFFFFFF),
-                      hintStyle: TextStyle(color: Color(0x80000000)),
-                      hintText: "E-Mail",
-                    ),
-                  ),
-
-
+                  createTextField(emailController,false, "E_Mail"),
                   //Enter PW
                   SizedBox(
                     height: 15,
                   ),
-                  TextField(
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      color: Color(0x80000000),
-                    ),
-                    textAlign: TextAlign.center,
-                    controller: passwordController,
-                    showCursor: true,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        borderSide: BorderSide(
-                          width: 1,
-                          style: BorderStyle.none,
-                        ),
-                      ),
-                      filled: true,
-                      fillColor: Color(0xFFFFFFFF),
-                      hintStyle: TextStyle(color: Color(0x80000000)),
-                      hintText: "Passwort",
-                    ),
-                  ),
-
-
+                  createTextField(passwordController,true, "Password"),
                   //Repeat PW
                   SizedBox(
                     height: 15,
                   ),
-                  TextField(
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      color: Color(0x80000000),
-                    ),
-                    textAlign: TextAlign.center,
-                    controller: repeatPassworController,
-                    showCursor: true,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        borderSide: BorderSide(
-                          width: 1,
-                          style: BorderStyle.none,
-                        ),
-                      ),
-                      filled: true,
-                      fillColor: Color(0xFFFFFFFF),
-                      hintStyle: TextStyle(color: Color(0x80000000)),
-                      hintText: "Passwort wiederholen",
-                    ),
-                  ),
-
-
+                   createTextField(repeatPassworController,true, "Passwort wiederholen"),
                   //Register Btn
                   SizedBox(
                     height: 15,
@@ -226,18 +78,22 @@ class AppSignUp extends StatelessWidget {
                     margin: const EdgeInsets.only(top: 50.0),
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {
-                        signUp();
+                      onPressed: () async {
+                        bool istErfolg = await signUp();
                         showDialog<String>(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
-                            title: const Text('Erfolgreich registriert'),
+                            title: Text(
+                                (istErfolg) ?'Erfolgreich registriert'
+                                :'Leider ist die Registrierung schiefgegangen!'
+                            ),
                             actions: <Widget>[
                               TextButton(
-                                onPressed: () => Navigator.push(
+                                onPressed: () => (istErfolg)?Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => AppSignIn()),
-                                ),
+                                  MaterialPageRoute(
+                                      builder: (context) => AppSignIn()),
+                                ):Navigator.of(context).pop(),
                                 child: const Text('Alles klar'),
                               ),
                             ],
@@ -265,55 +121,33 @@ class AppSignUp extends StatelessWidget {
                 ],
               ),
             ),
-            Flexible(
-              flex: 1,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      child: Text(
-                        "Du hast schon einen Account? ",
-                        style: GoogleFonts.poppins(
-                          fontSize: 14,
-                          color: Color(0xFF000000),
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => AppSignIn()),
-                        );
-                      },
-                      child: Container(
-                        child: Text(
-                          "Login",
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFF1F6C9C),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )
+            createRowWithNavigator('Du hast schon einen Account?',
+                context,
+                MaterialPageRoute(builder: (context) => AppSignIn()),
+              'Login')
+            
           ],
         ),
       ),
     );
   }
 
-  void signUp() {
-    postUserToJson(firstNameController.text, lastNameController.text, '',
-        emailController.text, passwordController.text, '', 0, '', '');
-    _clearFieldsAfterPost();
+
+  Future<bool> signUp() async{
+    if (firstNameController.text.isNotEmpty &&
+        lastNameController.text.isNotEmpty &&
+        emailController.text.isNotEmpty &&
+        passwordController.text.isNotEmpty) {
+      var status = await checkEmailAvailability(emailController.text);
+      if(status != 200)
+        return false; // email ist schon vergaben.
+
+      postUserToJson(firstNameController.text, lastNameController.text, '',
+          emailController.text, passwordController.text, '', 0, '', '');
+      _clearFieldsAfterPost();
+      return true;
+    }
+    return false;
   }
 
   _clearFieldsAfterPost() {

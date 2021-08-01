@@ -1,36 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tipple_app/registry/app-signUp.dart';
-import 'package:tipple_app/registry/registry-service.dart';
-import 'package:tipple_app/registry/registry.dart';
+import 'Configurator/cart.dart';
+
 
 void main() {
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => Cart(), child: TippleApp()));
 }
 
-class MyApp extends StatefulWidget {
-  MyApp({Key key}) : super(key: key);
+class TippleApp extends StatefulWidget {
+  TippleApp({Key key}) : super(key: key);
 
   @override
-  _MyAppState createState() => _MyAppState();
+  _TippleAppState createState() => _TippleAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  // This widget is the root of your application.
-  Future<List<Registry>> futureData;
-
+class _TippleAppState extends State<TippleApp> {
   @override
   void initState() {
     super.initState();
-    futureData = fetchRegistry();
   }
-
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.amber,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: AppSignUp(),
