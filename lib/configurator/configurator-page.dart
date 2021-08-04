@@ -43,7 +43,7 @@ class ConfiguratorPage extends StatelessWidget {
       title: Text('Konfigurator',  style: GoogleFonts.poppins(
         fontSize: 24,
         fontWeight: FontWeight.w500,
-        color: Color(0xFF000000),),),
+        color: Color(0xFFFFFFFF),),),
       actions: [
         FloatingActionButton.extended(
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,

@@ -117,7 +117,9 @@ class CartControls extends StatelessWidget {
   }
 
   void _update(BuildContext context, bool cart) {
-    updateConfigurationToJson(config, false, cart );
+    Configuration con = config as Configuration;
+    con.date = DateTime.now().toIso8601String();
+    updateConfigurationToJson(con, false, cart );
     Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage()));
   }
 

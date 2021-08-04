@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tipple_app/registry/address-page.dart';
 import 'package:tipple_app/registry/app-signIn.dart';
 import 'package:tipple_app/registry/registry-service.dart';
-import 'package:tipple_app/registry/registry-utility.dart';
 import 'package:tipple_app/updateProfile/updateUserEmail-page.dart';
 import 'package:tipple_app/updateProfile/updateUserPassword-page.dart';
 
@@ -28,7 +27,6 @@ class UpdateUserSettingsMenu extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Image.asset(
-                // build(context)
                 "assets/logo.png",
                 width: 200,
                 height: 200,

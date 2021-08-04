@@ -1,6 +1,6 @@
 import 'registry.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'dart:convert' show json, utf8;
 
  const  Map<String, String> HEADER = {
   'Content-type': 'application/json',
@@ -25,7 +25,7 @@ Future<List<Registry>> fetchAllUsers() async {
 // Erstelle User in die Userdatenbank. loclhost:8990/users
 // A
 createUser(Map<String, dynamic> users) async {
-
+  users.forEach((key, value) {value = utf8.encode(value);});
   var encodedBody = json.encode(users);
   var url = Uri.http('10.0.2.2:8990', 'users');
   http.Response response =
@@ -67,7 +67,6 @@ postUserToJson(
 // A
 deleteUser(Map<String, dynamic> users, String id) async {
 
-  var encodedBody = json.encode(users);
   var url = Uri.http('10.0.2.2:8990', 'users/$id');
   http.Response response =
       await http.delete(url, body: null, headers: HEADER);
@@ -102,7 +101,7 @@ Future<Registry> fetchUserById( String id) async {
 
   final response = await http.get(url);
   if (response.statusCode == 200) {
-    return Registry.fromJson(json.decode(response.body));
+    return Registry.fromJson(json.decode(utf8.decode(response.body.runes.toList())));
   } else {
     throw Exception('Failed to load Users');
   }
@@ -112,7 +111,7 @@ Future<Registry> fetchUserById( String id) async {
 // Update User aus der Userdatenbank localhost:8990/users/{id}
 // A
 updateUser(Map<String, dynamic> users, String id) async {
-
+  users.forEach((key, value) {value = utf8.encode(value.toString());});
   var encodedBody = json.encode(users);
   var url = Uri.http('10.0.2.2:8990', 'users/$id');
   http.Response response =

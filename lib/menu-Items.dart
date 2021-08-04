@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tipple_app/configuration/configuration-page.dart';
 import 'package:tipple_app/registry/app-signIn.dart';
@@ -32,16 +33,18 @@ class _MainPageState extends State<MainPage> {
           ),
           actions: [
             ElevatedButton(
-              onPressed: () =>
-              Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) =>  AppSignIn()),),
+              onPressed: () => {
+                Phoenix.rebirth(context),
+                // Navigator.pushReplacement(context,
+                //     MaterialPageRoute(builder: (context) => TippleApp())),
+              },
               child: Icon(
                 Icons.logout,
                 color: Color(0xFFFFFFFF),
               ),
               style: ButtonStyle(
-                  backgroundColor:  MaterialStateProperty.all(Color(0xFFFCC919)
-                  )),
+                  backgroundColor:
+                      MaterialStateProperty.all(Color(0xFFFCC919))),
             ),
           ],
         ),
@@ -142,7 +145,8 @@ class _MainPageState extends State<MainPage> {
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ConfigurationPage(title: 'Warenkorb')));
+                          builder: (context) =>
+                              ConfigurationPage(title: 'Warenkorb')));
                     },
                     child: Text(
                       "Warenkorb",
@@ -275,21 +279,11 @@ class _MainPageState extends State<MainPage> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => ConfiguratorPage()),
                       );
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => ChangeNotifierProvider(
-                      //           create: (context) => ConfiguratorPage(),  child: ConfiguratorPage()),
-                      // );
-
-                      // context.select<Cart, void>(
-                      //         (cart) => cart.items.clear());
                     },
                     child: Text(
                       "Zum Konfigurator",
